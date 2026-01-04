@@ -1,0 +1,129 @@
+/* Custom Styles */
+
+/* Smooth scroll behavior */
+html {
+    scroll-behavior: smooth;
+}
+
+/* Particles.js container */
+#particles-js {
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    background-color: transparent;
+    z-index: 0;
+}
+
+/* Custom scrollbar */
+::-webkit-scrollbar {
+  width: 10px;
+}
+
+::-webkit-scrollbar-track {
+  background: #f1f1f1;
+}
+
+.dark ::-webkit-scrollbar-track {
+  background: #1f2937;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #0ea5e9;
+  border-radius: 5px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #0284c7;
+}
+
+/* Section transitions */
+section {
+  opacity: 0;
+  transform: translateY(20px);
+  transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+}
+
+section.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Navigation active state */
+.nav-link.active {
+  color: #0ea5e9;
+}
+
+.dark .nav-link.active {
+  color: #38bdf8;
+}
+
+/* Skill card hover effect */
+.skill-card:hover {
+  border-color: #0ea5e9;
+}
+
+.dark .skill-card:hover {
+  border-color: #38bdf8;
+}
+
+/* Project card hover effect */
+.project-card:hover {
+  border-color: #0ea5e9;
+}
+
+.dark .project-card:hover {
+  border-color: #38bdf8;
+}
+
+/* Contact card hover effect */
+.contact-card:hover {
+  border-color: #0ea5e9;
+}
+
+.dark .contact-card:hover {
+  border-color: #38bdf8;
+}
+
+/* Animation delays for staggered effects */
+.animate-delay-100 {
+  animation-delay: 0.1s;
+}
+
+.animate-delay-200 {
+  animation-delay: 0.2s;
+}
+
+.animate-delay-300 {
+  animation-delay: 0.3s;
+}
+
+.animate-delay-400 {
+  animation-delay: 0.4s;
+}
+
+/* Loading animation */
+@keyframes pulse {
+  0%,
+  100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.5;
+  }
+}
+
+/* Focus styles for accessibility */
+a:focus,
+button:focus {
+  outline: 2px solid #0ea5e9;
+  outline-offset: 2px;
+}
+
+/* Print styles */
+@media print {
+  nav,
+  #scroll-top,
+  #theme-toggle {
+    display: none;
+  }
+}

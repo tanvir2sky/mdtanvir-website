@@ -1,0 +1,830 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta
+      name="description"
+      content="MD Tanvir Hossain - Software Engineer specializing in Laravel, PHP, Shopify, and modern web development"
+    />
+    <meta
+      name="keywords"
+      content="MD Tanvir Hossain, Software Engineer, Laravel, PHP, Shopify, Web Developer"
+    />
+    <meta name="author" content="MD Tanvir Hossain" />
+    <title>MD Tanvir Hossain | Software Engineer</title>
+
+    <!-- Google tag (gtag.js) -->
+    <script
+      async
+      src="https://www.googletagmanager.com/gtag/js?id=G-HL9XG1EPX7"
+    ></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag() {
+        dataLayer.push(arguments);
+      }
+      gtag("js", new Date());
+
+      gtag("config", "G-HL9XG1EPX7");
+    </script>
+
+    <!-- TailwindCSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <!-- Custom Tailwind Config -->
+    <script>
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            colors: {
+              primary: {
+                50: "#f0f9ff",
+                100: "#e0f2fe",
+                200: "#bae6fd",
+                300: "#7dd3fc",
+                400: "#38bdf8",
+                500: "#0ea5e9",
+                600: "#0284c7",
+                700: "#0369a1",
+                800: "#075985",
+                900: "#0c4a6e",
+              },
+            },
+            animation: {
+              "fade-in": "fadeIn 0.6s ease-in-out",
+              "slide-up": "slideUp 0.6s ease-out",
+              float: "float 3s ease-in-out infinite",
+            },
+            keyframes: {
+              fadeIn: {
+                "0%": { opacity: "0" },
+                "100%": { opacity: "1" },
+              },
+              slideUp: {
+                "0%": { transform: "translateY(20px)", opacity: "0" },
+                "100%": { transform: "translateY(0)", opacity: "1" },
+              },
+              float: {
+                "0%, 100%": { transform: "translateY(0px)" },
+                "50%": { transform: "translateY(-10px)" },
+              },
+            },
+          },
+        },
+      };
+    </script>
+
+    <!-- Custom Styles -->
+    <link rel="stylesheet" href="styles.css" />
+
+    <!-- Font Awesome for Icons -->
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+    />
+
+    <!-- Particles.js -->
+    <script src="https://cdn.jsdelivr.net/npm/particles.js@2.0.0/particles.min.js"></script>
+  </head>
+  <body
+    class="bg-white dark:bg-gray-900 text-gray-900 dark:text-gray-100 transition-colors duration-300"
+  >
+    <!-- Navigation -->
+    <nav
+      class="fixed top-0 w-full z-50 bg-white/80 dark:bg-gray-900/80 backdrop-blur-md border-b border-gray-200 dark:border-gray-800 transition-colors duration-300"
+    >
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="flex justify-between items-center h-16">
+          <div class="text-xl font-bold text-primary-600 dark:text-primary-400">
+            MD Tanvir
+          </div>
+          <div class="hidden md:flex space-x-8">
+            <a
+              href="#home"
+              class="nav-link text-gray-700 dark:text-gray-300 hover:text-primary-600 dark:hover:text-primary-400 transition-colors"
+              >Home</a
+            >
+            <a
+              href="#about"
+              class="nav-link text-gray-700 dark:text-gray-300 hover:text-primary-600 dark:hover:text-primary-400 transition-colors"
+              >About</a
+            >
+            <a
+              href="#skills"
+              class="nav-link text-gray-700 dark:text-gray-300 hover:text-primary-600 dark:hover:text-primary-400 transition-colors"
+              >Skills</a
+            >
+            <a
+              href="#experience"
+              class="nav-link text-gray-700 dark:text-gray-300 hover:text-primary-600 dark:hover:text-primary-400 transition-colors"
+              >Experience</a
+            >
+            <a
+              href="#projects"
+              class="nav-link text-gray-700 dark:text-gray-300 hover:text-primary-600 dark:hover:text-primary-400 transition-colors"
+              >Projects</a
+            >
+            <a
+              href="#contact"
+              class="nav-link text-gray-700 dark:text-gray-300 hover:text-primary-600 dark:hover:text-primary-400 transition-colors"
+              >Contact</a
+            >
+          </div>
+          <button
+            id="theme-toggle"
+            class="p-2 rounded-lg bg-gray-200 dark:bg-gray-800 hover:bg-gray-300 dark:hover:bg-gray-700 transition-colors"
+          >
+            <i class="fas fa-moon dark:hidden"></i>
+            <i class="fas fa-sun hidden dark:inline"></i>
+          </button>
+          <button
+            id="mobile-menu-toggle"
+            class="md:hidden p-2 rounded-lg bg-gray-200 dark:bg-gray-800"
+          >
+            <i class="fas fa-bars"></i>
+          </button>
+        </div>
+      </div>
+      <!-- Mobile Menu -->
+      <div
+        id="mobile-menu"
+        class="hidden md:hidden border-t border-gray-200 dark:border-gray-800 bg-white dark:bg-gray-900"
+      >
+        <div class="px-4 py-4 space-y-3">
+          <a
+            href="#home"
+            class="block nav-link text-gray-700 dark:text-gray-300 hover:text-primary-600 dark:hover:text-primary-400"
+            >Home</a
+          >
+          <a
+            href="#about"
+            class="block nav-link text-gray-700 dark:text-gray-300 hover:text-primary-600 dark:hover:text-primary-400"
+            >About</a
+          >
+          <a
+            href="#skills"
+            class="block nav-link text-gray-700 dark:text-gray-300 hover:text-primary-600 dark:hover:text-primary-400"
+            >Skills</a
+          >
+          <a
+            href="#experience"
+            class="block nav-link text-gray-700 dark:text-gray-300 hover:text-primary-600 dark:hover:text-primary-400"
+            >Experience</a
+          >
+          <a
+            href="#projects"
+            class="block nav-link text-gray-700 dark:text-gray-300 hover:text-primary-600 dark:hover:text-primary-400"
+            >Projects</a
+          >
+          <a
+            href="#contact"
+            class="block nav-link text-gray-700 dark:text-gray-300 hover:text-primary-600 dark:hover:text-primary-400"
+            >Contact</a
+          >
+        </div>
+      </div>
+    </nav>
+
+    <!-- Particles Background -->
+    <div id="particles-js" class="fixed inset-0 z-0 pointer-events-none"></div>
+
+    <!-- Hero Section -->
+    <section
+      id="home"
+      class="min-h-screen flex items-center justify-center px-4 sm:px-6 lg:px-8 pt-16 relative z-10"
+    >
+      <div class="max-w-4xl mx-auto text-center animate-fade-in">
+        <div class="mb-6 animate-float">
+          <img
+            src="img/profile.jpg"
+            alt="MD Tanvir Hossain"
+            class="w-32 h-32 mx-auto rounded-full object-cover shadow-2xl border-4 border-primary-200 dark:border-primary-800"
+          />
+        </div>
+        <h1
+          class="text-5xl md:text-7xl font-bold mb-4 bg-gradient-to-r from-primary-600 to-primary-400 bg-clip-text text-transparent animate-slide-up"
+        >
+          MD Tanvir Hossain
+        </h1>
+        <h2
+          class="text-2xl md:text-3xl font-semibold text-gray-700 dark:text-gray-300 mb-6 animate-slide-up"
+          style="animation-delay: 0.2s"
+        >
+          Software Engineer
+        </h2>
+        <p
+          class="text-lg md:text-xl text-gray-600 dark:text-gray-400 mb-8 max-w-2xl mx-auto animate-slide-up"
+          style="animation-delay: 0.4s"
+        >
+          Crafting robust web solutions with Laravel, PHP, and Shopify.
+          Passionate about clean code, scalable architecture, and delivering
+          exceptional digital experiences.
+        </p>
+        <div
+          class="flex flex-wrap justify-center gap-4 animate-slide-up"
+          style="animation-delay: 0.6s"
+        >
+          <a
+            href="#contact"
+            class="px-8 py-3 bg-primary-600 hover:bg-primary-700 text-white rounded-lg font-semibold shadow-lg hover:shadow-xl transition-all transform hover:scale-105"
+          >
+            Get In Touch
+          </a>
+          <a
+            href="https://www.linkedin.com/in/tanvir-cs"
+            target="_blank"
+            rel="noopener noreferrer"
+            class="px-8 py-3 bg-gray-200 dark:bg-gray-800 hover:bg-gray-300 dark:hover:bg-gray-700 text-gray-900 dark:text-gray-100 rounded-lg font-semibold shadow-lg hover:shadow-xl transition-all transform hover:scale-105"
+          >
+            <i class="fab fa-linkedin mr-2"></i>LinkedIn
+          </a>
+          <a
+            href="https://github.com/tanvir-cs"
+            target="_blank"
+            rel="noopener noreferrer"
+            class="px-8 py-3 bg-gray-200 dark:bg-gray-800 hover:bg-gray-300 dark:hover:bg-gray-700 text-gray-900 dark:text-gray-100 rounded-lg font-semibold shadow-lg hover:shadow-xl transition-all transform hover:scale-105"
+          >
+            <i class="fab fa-github mr-2"></i>GitHub
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <!-- About Section -->
+    <section
+      id="about"
+      class="py-20 px-4 sm:px-6 lg:px-8 bg-gray-50 dark:bg-gray-800"
+    >
+      <div class="max-w-4xl mx-auto">
+        <h2
+          class="text-4xl md:text-5xl font-bold text-center mb-12 text-gray-900 dark:text-white"
+        >
+          About Me
+        </h2>
+        <div class="prose prose-lg dark:prose-invert max-w-none">
+          <p
+            class="text-lg text-gray-700 dark:text-gray-300 leading-relaxed mb-4"
+          >
+            I'm a passionate Software Engineer with expertise in building
+            scalable web applications using modern technologies. My journey in
+            software development has been driven by a commitment to writing
+            clean, maintainable code and solving complex problems with elegant
+            solutions.
+          </p>
+          <p
+            class="text-lg text-gray-700 dark:text-gray-300 leading-relaxed mb-4"
+          >
+            Specializing in
+            <strong class="text-primary-600 dark:text-primary-400"
+              >Laravel</strong
+            >
+            and
+            <strong class="text-primary-600 dark:text-primary-400">PHP</strong>,
+            I've developed robust backend systems and RESTful APIs that power
+            high-performance applications. My experience with
+            <strong class="text-primary-600 dark:text-primary-400"
+              >Shopify</strong
+            >
+            has enabled me to create seamless e-commerce solutions and custom
+            storefronts for businesses of all sizes.
+          </p>
+          <p class="text-lg text-gray-700 dark:text-gray-300 leading-relaxed">
+            Beyond coding, I'm dedicated to continuous learning, staying updated
+            with industry best practices, and contributing to the developer
+            community. I believe in building software that not only meets
+            requirements but exceeds expectations in terms of performance,
+            security, and user experience.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Skills Section -->
+    <section id="skills" class="py-20 px-4 sm:px-6 lg:px-8">
+      <div class="max-w-6xl mx-auto">
+        <h2
+          class="text-4xl md:text-5xl font-bold text-center mb-12 text-gray-900 dark:text-white"
+        >
+          Skills & Technologies
+        </h2>
+        <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
+          <!-- Backend -->
+          <div
+            class="skill-card bg-white dark:bg-gray-800 p-6 rounded-xl shadow-lg hover:shadow-2xl transition-all transform hover:scale-105 border border-gray-200 dark:border-gray-700"
+          >
+            <div class="text-4xl mb-4 text-primary-600 dark:text-primary-400">
+              <i class="fas fa-server"></i>
+            </div>
+            <h3 class="text-xl font-bold mb-4 text-gray-900 dark:text-white">
+              Backend
+            </h3>
+            <ul class="space-y-2 text-gray-700 dark:text-gray-300">
+              <li class="flex items-center">
+                <i
+                  class="fas fa-check-circle text-primary-600 dark:text-primary-400 mr-2"
+                ></i>
+                Laravel
+              </li>
+              <li class="flex items-center">
+                <i
+                  class="fas fa-check-circle text-primary-600 dark:text-primary-400 mr-2"
+                ></i>
+                PHP
+              </li>
+              <li class="flex items-center">
+                <i
+                  class="fas fa-check-circle text-primary-600 dark:text-primary-400 mr-2"
+                ></i>
+                RESTful APIs
+              </li>
+              <li class="flex items-center">
+                <i
+                  class="fas fa-check-circle text-primary-600 dark:text-primary-400 mr-2"
+                ></i>
+                MySQL
+              </li>
+              <li class="flex items-center">
+                <i
+                  class="fas fa-check-circle text-primary-600 dark:text-primary-400 mr-2"
+                ></i>
+                PostgreSQL
+              </li>
+            </ul>
+          </div>
+
+          <!-- Frontend -->
+          <div
+            class="skill-card bg-white dark:bg-gray-800 p-6 rounded-xl shadow-lg hover:shadow-2xl transition-all transform hover:scale-105 border border-gray-200 dark:border-gray-700"
+          >
+            <div class="text-4xl mb-4 text-primary-600 dark:text-primary-400">
+              <i class="fas fa-code"></i>
+            </div>
+            <h3 class="text-xl font-bold mb-4 text-gray-900 dark:text-white">
+              Frontend
+            </h3>
+            <ul class="space-y-2 text-gray-700 dark:text-gray-300">
+              <li class="flex items-center">
+                <i
+                  class="fas fa-check-circle text-primary-600 dark:text-primary-400 mr-2"
+                ></i>
+                HTML5
+              </li>
+              <li class="flex items-center">
+                <i
+                  class="fas fa-check-circle text-primary-600 dark:text-primary-400 mr-2"
+                ></i>
+                CSS3
+              </li>
+              <li class="flex items-center">
+                <i
+                  class="fas fa-check-circle text-primary-600 dark:text-primary-400 mr-2"
+                ></i>
+                JavaScript
+              </li>
+              <li class="flex items-center">
+                <i
+                  class="fas fa-check-circle text-primary-600 dark:text-primary-400 mr-2"
+                ></i>
+                TailwindCSS
+              </li>
+              <li class="flex items-center">
+                <i
+                  class="fas fa-check-circle text-primary-600 dark:text-primary-400 mr-2"
+                ></i>
+                Responsive Design
+              </li>
+            </ul>
+          </div>
+
+          <!-- E-commerce -->
+          <div
+            class="skill-card bg-white dark:bg-gray-800 p-6 rounded-xl shadow-lg hover:shadow-2xl transition-all transform hover:scale-105 border border-gray-200 dark:border-gray-700"
+          >
+            <div class="text-4xl mb-4 text-primary-600 dark:text-primary-400">
+              <i class="fas fa-shopping-cart"></i>
+            </div>
+            <h3 class="text-xl font-bold mb-4 text-gray-900 dark:text-white">
+              E-commerce
+            </h3>
+            <ul class="space-y-2 text-gray-700 dark:text-gray-300">
+              <li class="flex items-center">
+                <i
+                  class="fas fa-check-circle text-primary-600 dark:text-primary-400 mr-2"
+                ></i>
+                Shopify
+              </li>
+              <li class="flex items-center">
+                <i
+                  class="fas fa-check-circle text-primary-600 dark:text-primary-400 mr-2"
+                ></i>
+                Shopify Apps
+              </li>
+              <li class="flex items-center">
+                <i
+                  class="fas fa-check-circle text-primary-600 dark:text-primary-400 mr-2"
+                ></i>
+                Liquid Templates
+              </li>
+              <li class="flex items-center">
+                <i
+                  class="fas fa-check-circle text-primary-600 dark:text-primary-400 mr-2"
+                ></i>
+                Store Customization
+              </li>
+            </ul>
+          </div>
+
+          <!-- Tools & DevOps -->
+          <div
+            class="skill-card bg-white dark:bg-gray-800 p-6 rounded-xl shadow-lg hover:shadow-2xl transition-all transform hover:scale-105 border border-gray-200 dark:border-gray-700"
+          >
+            <div class="text-4xl mb-4 text-primary-600 dark:text-primary-400">
+              <i class="fas fa-tools"></i>
+            </div>
+            <h3 class="text-xl font-bold mb-4 text-gray-900 dark:text-white">
+              Tools & DevOps
+            </h3>
+            <ul class="space-y-2 text-gray-700 dark:text-gray-300">
+              <li class="flex items-center">
+                <i
+                  class="fas fa-check-circle text-primary-600 dark:text-primary-400 mr-2"
+                ></i>
+                Git & GitHub
+              </li>
+              <li class="flex items-center">
+                <i
+                  class="fas fa-check-circle text-primary-600 dark:text-primary-400 mr-2"
+                ></i>
+                Docker
+              </li>
+              <li class="flex items-center">
+                <i
+                  class="fas fa-check-circle text-primary-600 dark:text-primary-400 mr-2"
+                ></i>
+                CI/CD
+              </li>
+              <li class="flex items-center">
+                <i
+                  class="fas fa-check-circle text-primary-600 dark:text-primary-400 mr-2"
+                ></i>
+                Linux
+              </li>
+              <li class="flex items-center">
+                <i
+                  class="fas fa-check-circle text-primary-600 dark:text-primary-400 mr-2"
+                ></i>
+                AWS
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Experience Section -->
+    <section
+      id="experience"
+      class="py-20 px-4 sm:px-6 lg:px-8 bg-gray-50 dark:bg-gray-800"
+    >
+      <div class="max-w-4xl mx-auto">
+        <h2
+          class="text-4xl md:text-5xl font-bold text-center mb-12 text-gray-900 dark:text-white"
+        >
+          Professional Experience
+        </h2>
+        <div class="relative">
+          <!-- Timeline Line -->
+          <div
+            class="absolute left-8 md:left-1/2 top-0 bottom-0 w-0.5 bg-primary-300 dark:bg-primary-700 transform md:-translate-x-1/2"
+          ></div>
+
+          <!-- Experience Items -->
+          <div class="space-y-12">
+            <!-- Experience 1 -->
+            <div class="relative flex items-start">
+              <div
+                class="absolute left-6 md:left-1/2 w-4 h-4 bg-primary-600 rounded-full transform md:-translate-x-1/2 z-10"
+              ></div>
+              <div class="ml-16 md:ml-0 md:w-1/2 md:pr-8">
+                <div
+                  class="bg-white dark:bg-gray-900 p-6 rounded-xl shadow-lg border border-gray-200 dark:border-gray-700"
+                >
+                  <div class="flex items-center justify-between mb-2">
+                    <h3 class="text-xl font-bold text-gray-900 dark:text-white">
+                      Software Engineer
+                    </h3>
+                    <span
+                      class="text-sm text-primary-600 dark:text-primary-400 font-semibold"
+                      >Present</span
+                    >
+                  </div>
+                  <p
+                    class="text-primary-600 dark:text-primary-400 font-semibold mb-3"
+                  >
+                    <a
+                      href="https://altruan.de"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      class="hover:underline"
+                      >Altruan GMBH</a
+                    >
+                  </p>
+                  <p class="text-gray-700 dark:text-gray-300">
+                    Developing and maintaining scalable web applications using
+                    Laravel and PHP. Building custom Shopify solutions and
+                    RESTful APIs. Collaborating with cross-functional teams to
+                    deliver high-quality software solutions.
+                  </p>
+                </div>
+              </div>
+            </div>
+
+            <!-- Experience 2 -->
+            <div class="relative flex items-start md:flex-row-reverse">
+              <div
+                class="absolute left-6 md:left-1/2 w-4 h-4 bg-primary-600 rounded-full transform md:-translate-x-1/2 z-10"
+              ></div>
+              <div class="ml-16 md:ml-0 md:w-1/2 md:pl-8">
+                <div
+                  class="bg-white dark:bg-gray-900 p-6 rounded-xl shadow-lg border border-gray-200 dark:border-gray-700"
+                >
+                  <div class="flex items-center justify-between mb-2">
+                    <h3 class="text-xl font-bold text-gray-900 dark:text-white">
+                      Full Stack Developer
+                    </h3>
+                    <span
+                      class="text-sm text-primary-600 dark:text-primary-400 font-semibold"
+                      >2020 - 2025</span
+                    >
+                  </div>
+                  <p
+                    class="text-primary-600 dark:text-primary-400 font-semibold mb-3"
+                  >
+                    <a
+                      href="https://technoplusit.com.au"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      class="hover:underline"
+                      >technoPLUS IT</a
+                    >
+                  </p>
+                  <p class="text-gray-700 dark:text-gray-300">
+                    Built responsive web applications from concept to
+                    deployment. Implemented frontend interfaces with modern CSS
+                    and JavaScript, and developed robust backend systems with
+                    Laravel framework.
+                  </p>
+                </div>
+              </div>
+            </div>
+
+            <!-- Experience 3 -->
+            <div class="relative flex items-start">
+              <div
+                class="absolute left-6 md:left-1/2 w-4 h-4 bg-primary-600 rounded-full transform md:-translate-x-1/2 z-10"
+              ></div>
+              <div class="ml-16 md:ml-0 md:w-1/2 md:pr-8">
+                <div
+                  class="bg-white dark:bg-gray-900 p-6 rounded-xl shadow-lg border border-gray-200 dark:border-gray-700"
+                >
+                  <div class="flex items-center justify-between mb-2">
+                    <h3 class="text-xl font-bold text-gray-900 dark:text-white">
+                      Junior Developer
+                    </h3>
+                    <span
+                      class="text-sm text-primary-600 dark:text-primary-400 font-semibold"
+                      >2018 - 2020</span
+                    >
+                  </div>
+                  <p
+                    class="text-primary-600 dark:text-primary-400 font-semibold mb-3"
+                  >
+                    <a
+                      href="https://www.creativeitem.com"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      class="hover:underline"
+                      >Creativeitem</a
+                    >
+                  </p>
+                  <p class="text-gray-700 dark:text-gray-300">
+                    Started my professional journey working on PHP-based
+                    projects. Gained expertise in database design, API
+                    development, and modern web development practices.
+                    Contributed to building high-quality web applications and
+                    digital products.
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Projects Section -->
+    <section id="projects" class="py-20 px-4 sm:px-6 lg:px-8">
+      <div class="max-w-6xl mx-auto">
+        <h2
+          class="text-4xl md:text-5xl font-bold text-center mb-12 text-gray-900 dark:text-white"
+        >
+          Featured Projects
+        </h2>
+        <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+          <!-- Project 1 -->
+          <div
+            class="project-card bg-white dark:bg-gray-800 rounded-xl shadow-lg hover:shadow-2xl transition-all transform hover:scale-105 border border-gray-200 dark:border-gray-700 overflow-hidden"
+          >
+            <div
+              class="h-48 bg-gradient-to-br from-primary-400 to-primary-600 flex items-center justify-center"
+            >
+              <i class="fas fa-shopping-bag text-6xl text-white opacity-80"></i>
+            </div>
+            <div class="p-6">
+              <h3 class="text-xl font-bold mb-2 text-gray-900 dark:text-white">
+                E-commerce Platform
+              </h3>
+              <p class="text-gray-700 dark:text-gray-300 mb-4">
+                A full-featured e-commerce solution built with Laravel and
+                Shopify integration. Includes custom storefront, payment
+                processing, and inventory management.
+              </p>
+              <div class="flex flex-wrap gap-2">
+                <span
+                  class="px-3 py-1 bg-primary-100 dark:bg-primary-900 text-primary-700 dark:text-primary-300 rounded-full text-sm"
+                  >Laravel</span
+                >
+                <span
+                  class="px-3 py-1 bg-primary-100 dark:bg-primary-900 text-primary-700 dark:text-primary-300 rounded-full text-sm"
+                  >Shopify</span
+                >
+                <span
+                  class="px-3 py-1 bg-primary-100 dark:bg-primary-900 text-primary-700 dark:text-primary-300 rounded-full text-sm"
+                  >PHP</span
+                >
+              </div>
+            </div>
+          </div>
+
+          <!-- Project 2 -->
+          <div
+            class="project-card bg-white dark:bg-gray-800 rounded-xl shadow-lg hover:shadow-2xl transition-all transform hover:scale-105 border border-gray-200 dark:border-gray-700 overflow-hidden"
+          >
+            <div
+              class="h-48 bg-gradient-to-br from-primary-500 to-primary-700 flex items-center justify-center"
+            >
+              <i class="fab fa-shopify text-6xl text-white opacity-80"></i>
+            </div>
+            <div class="p-6">
+              <h3 class="text-xl font-bold mb-2 text-gray-900 dark:text-white">
+                Shopify App
+              </h3>
+              <p class="text-gray-700 dark:text-gray-300 mb-4">
+                Custom Shopify application built with Laravel and Shopify API
+                integration. Features include product management, order
+                processing, and automated workflows for e-commerce stores.
+              </p>
+              <div class="flex flex-wrap gap-2">
+                <span
+                  class="px-3 py-1 bg-primary-100 dark:bg-primary-900 text-primary-700 dark:text-primary-300 rounded-full text-sm"
+                  >Laravel</span
+                >
+                <span
+                  class="px-3 py-1 bg-primary-100 dark:bg-primary-900 text-primary-700 dark:text-primary-300 rounded-full text-sm"
+                  >Shopify API</span
+                >
+                <span
+                  class="px-3 py-1 bg-primary-100 dark:bg-primary-900 text-primary-700 dark:text-primary-300 rounded-full text-sm"
+                  >PHP</span
+                >
+                <span
+                  class="px-3 py-1 bg-primary-100 dark:bg-primary-900 text-primary-700 dark:text-primary-300 rounded-full text-sm"
+                  >REST API</span
+                >
+              </div>
+            </div>
+          </div>
+
+          <!-- Project 3 -->
+          <div
+            class="project-card bg-white dark:bg-gray-800 rounded-xl shadow-lg hover:shadow-2xl transition-all transform hover:scale-105 border border-gray-200 dark:border-gray-700 overflow-hidden"
+          >
+            <div
+              class="h-48 bg-gradient-to-br from-primary-600 to-primary-800 flex items-center justify-center"
+            >
+              <i class="fas fa-chart-pie text-6xl text-white opacity-80"></i>
+            </div>
+            <div class="p-6">
+              <h3 class="text-xl font-bold mb-2 text-gray-900 dark:text-white">
+                Financial App
+              </h3>
+              <p class="text-gray-700 dark:text-gray-300 mb-4">
+                Comprehensive financial management application built with
+                Laravel. Features include transaction tracking, budget
+                management, financial reporting, and secure payment processing.
+              </p>
+              <div class="flex flex-wrap gap-2">
+                <span
+                  class="px-3 py-1 bg-primary-100 dark:bg-primary-900 text-primary-700 dark:text-primary-300 rounded-full text-sm"
+                  >Laravel</span
+                >
+                <span
+                  class="px-3 py-1 bg-primary-100 dark:bg-primary-900 text-primary-700 dark:text-primary-300 rounded-full text-sm"
+                  >PHP</span
+                >
+                <span
+                  class="px-3 py-1 bg-primary-100 dark:bg-primary-900 text-primary-700 dark:text-primary-300 rounded-full text-sm"
+                  >MySQL</span
+                >
+                <span
+                  class="px-3 py-1 bg-primary-100 dark:bg-primary-900 text-primary-700 dark:text-primary-300 rounded-full text-sm"
+                  >Payment Gateway</span
+                >
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section
+      id="contact"
+      class="py-20 px-4 sm:px-6 lg:px-8 bg-gray-50 dark:bg-gray-800"
+    >
+      <div class="max-w-4xl mx-auto">
+        <h2
+          class="text-4xl md:text-5xl font-bold text-center mb-12 text-gray-900 dark:text-white"
+        >
+          Get In Touch
+        </h2>
+        <p
+          class="text-center text-lg text-gray-700 dark:text-gray-300 mb-12 max-w-2xl mx-auto"
+        >
+          I'm always open to discussing new projects, creative ideas, or
+          opportunities to be part of your vision. Feel free to reach out!
+        </p>
+        <div class="grid md:grid-cols-3 gap-6 mb-12">
+          <a
+            href="mailto:contact@mdtanvir.com"
+            class="contact-card bg-white dark:bg-gray-900 p-6 rounded-xl shadow-lg hover:shadow-2xl transition-all transform hover:scale-105 border border-gray-200 dark:border-gray-700 text-center"
+          >
+            <div class="text-4xl mb-4 text-primary-600 dark:text-primary-400">
+              <i class="fas fa-envelope"></i>
+            </div>
+            <h3 class="font-bold mb-2 text-gray-900 dark:text-white">Email</h3>
+            <p class="text-gray-700 dark:text-gray-300 text-sm">
+              contact@mdtanvir.com
+            </p>
+          </a>
+          <a
+            href="https://www.linkedin.com/in/tanvir-cs"
+            target="_blank"
+            rel="noopener noreferrer"
+            class="contact-card bg-white dark:bg-gray-900 p-6 rounded-xl shadow-lg hover:shadow-2xl transition-all transform hover:scale-105 border border-gray-200 dark:border-gray-700 text-center"
+          >
+            <div class="text-4xl mb-4 text-primary-600 dark:text-primary-400">
+              <i class="fab fa-linkedin"></i>
+            </div>
+            <h3 class="font-bold mb-2 text-gray-900 dark:text-white">
+              LinkedIn
+            </h3>
+            <p class="text-gray-700 dark:text-gray-300 text-sm">
+              Connect with me
+            </p>
+          </a>
+          <a
+            href="https://github.com/tanvir-cs"
+            target="_blank"
+            rel="noopener noreferrer"
+            class="contact-card bg-white dark:bg-gray-900 p-6 rounded-xl shadow-lg hover:shadow-2xl transition-all transform hover:scale-105 border border-gray-200 dark:border-gray-700 text-center"
+          >
+            <div class="text-4xl mb-4 text-primary-600 dark:text-primary-400">
+              <i class="fab fa-github"></i>
+            </div>
+            <h3 class="font-bold mb-2 text-gray-900 dark:text-white">GitHub</h3>
+            <p class="text-gray-700 dark:text-gray-300 text-sm">View my code</p>
+          </a>
+        </div>
+        <div class="text-center">
+          <p class="text-gray-600 dark:text-gray-400">
+            © 2026 MD Tanvir Hossain. All rights reserved.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Scroll to Top Button -->
+    <button
+      id="scroll-top"
+      class="fixed bottom-8 right-8 p-4 bg-primary-600 hover:bg-primary-700 text-white rounded-full shadow-lg hover:shadow-xl transition-all transform hover:scale-110 opacity-0 pointer-events-none z-50"
+    >
+      <i class="fas fa-arrow-up"></i>
+    </button>
+
+    <!-- JavaScript -->
+    <script src="script.js"></script>
+  </body>
+</html>
