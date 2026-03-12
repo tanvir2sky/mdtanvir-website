@@ -1,16 +1,21 @@
 // Theme Toggle
 const themeToggle = document.getElementById("theme-toggle");
 const html = document.documentElement;
+const systemThemeQuery = window.matchMedia("(prefers-color-scheme: dark)");
 
-// Check for saved theme preference or default to light mode
-const currentTheme = localStorage.getItem("theme") || "light";
-html.classList.toggle("dark", currentTheme === "dark");
+// Use browser/system preference for theme by default.
+function applySystemTheme() {
+  html.classList.toggle("dark", systemThemeQuery.matches);
+}
+
+applySystemTheme();
 
 themeToggle.addEventListener("click", () => {
   html.classList.toggle("dark");
-  const theme = html.classList.contains("dark") ? "dark" : "light";
-  localStorage.setItem("theme", theme);
 });
+
+// Keep theme in sync when user changes browser/OS appearance settings.
+systemThemeQuery.addEventListener("change", applySystemTheme);
 
 // Mobile Menu Toggle
 const mobileMenuToggle = document.getElementById("mobile-menu-toggle");
@@ -269,16 +274,17 @@ document.addEventListener("DOMContentLoaded", () => {
 // Reinitialize particles when theme changes
 let particlesInstance = null;
 
-themeToggle.addEventListener("click", () => {
+function refreshParticlesForTheme() {
   setTimeout(() => {
     if (typeof particlesJS !== "undefined" && particlesInstance) {
-      // Destroy existing particles instance
       if (particlesInstance.pJSDom && particlesInstance.pJSDom[0]) {
         particlesInstance.pJSDom[0].pJS.fn.vendors.destroypJS();
         particlesInstance.pJSDom = [];
       }
-      // Reinitialize with new theme
       initParticles();
     }
   }, 100);
-});
+}
+
+themeToggle.addEventListener("click", refreshParticlesForTheme);
+systemThemeQuery.addEventListener("change", refreshParticlesForTheme);
