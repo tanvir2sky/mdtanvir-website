@@ -1,6 +1,9 @@
 @extends('layouts.app')
 
 @section('content')
+@php
+  $turnstileSiteKey = config('services.turnstile.site_key');
+@endphp
 <nav
       class="fixed top-0 w-full z-50 bg-white/80 dark:bg-gray-950/80 backdrop-blur-xl border-b border-gray-200/70 dark:border-gray-800/70 transition-colors duration-300"
     >
@@ -715,6 +718,17 @@
                     <p class="text-sm text-red-600 mt-1">{{ $message }}</p>
                   @enderror
                 </div>
+                @if (filled($turnstileSiteKey))
+                  <div>
+                    <div class="cf-turnstile" data-sitekey="{{ $turnstileSiteKey }}"></div>
+                    @error('cf-turnstile-response')
+                      <p class="text-sm text-red-600 mt-1">{{ $message }}</p>
+                    @enderror
+                    @error('turnstile')
+                      <p class="text-sm text-red-600 mt-1">{{ $message }}</p>
+                    @enderror
+                  </div>
+                @endif
                 <button type="submit" class="w-full px-6 py-3 rounded-xl bg-primary-600 hover:bg-primary-700 text-white font-semibold transition">
                   Submit Message
                 </button>
@@ -740,4 +754,7 @@
     >
       <i class="fas fa-arrow-up"></i>
     </button>
+    @if (filled($turnstileSiteKey))
+      <script src="https://challenges.cloudflare.com/turnstile/v0/api.js" async defer></script>
+    @endif
 @endsection

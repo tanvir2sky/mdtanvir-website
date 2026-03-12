@@ -196,13 +196,13 @@ if ("loading" in HTMLImageElement.prototype) {
 
 // Particles.js Configuration
 function initParticles() {
-  if (!document.getElementById("particles-js") || typeof particlesJS === "undefined") {
+  if (!document.getElementById("particles-js") || typeof window.particlesJS === "undefined") {
     return;
   }
 
   const isDark = html.classList.contains("dark");
 
-  particlesInstance = particlesJS("particles-js", {
+  window.particlesJS("particles-js", {
     particles: {
       number: {
         value: 80,
@@ -311,15 +311,12 @@ document.addEventListener("DOMContentLoaded", () => {
   initParticles();
 });
 
-// Reinitialize particles when theme changes
-let particlesInstance = null;
-
 function refreshParticlesForTheme() {
   setTimeout(() => {
-    if (typeof particlesJS !== "undefined" && particlesInstance) {
-      if (particlesInstance.pJSDom && particlesInstance.pJSDom[0]) {
-        particlesInstance.pJSDom[0].pJS.fn.vendors.destroypJS();
-        particlesInstance.pJSDom = [];
+    if (typeof window.particlesJS !== "undefined") {
+      if (window.pJSDom && window.pJSDom[0]) {
+        window.pJSDom[0].pJS.fn.vendors.destroypJS();
+        window.pJSDom = [];
       }
       initParticles();
     }
