@@ -39,6 +39,11 @@
               >Projects</a
             >
             <a
+              href="{{ route('blog.index') }}"
+              class="text-sm font-medium text-gray-700 dark:text-gray-300 hover:text-primary-600 dark:hover:text-primary-400 transition-colors"
+              >Blog</a
+            >
+            <a
               href="#contact"
               class="nav-link text-sm font-medium text-gray-700 dark:text-gray-300 hover:text-primary-600 dark:hover:text-primary-400 transition-colors"
               >Contact</a
@@ -94,6 +99,11 @@
             href="#projects"
             class="block nav-link text-gray-700 dark:text-gray-300 hover:text-primary-600 dark:hover:text-primary-400"
             >Projects</a
+          >
+          <a
+            href="{{ route('blog.index') }}"
+            class="block text-gray-700 dark:text-gray-300 hover:text-primary-600 dark:hover:text-primary-400"
+            >Blog</a
           >
           <a
             href="#contact"
@@ -622,49 +632,93 @@
               </p>
             </div>
 
-            <div class="grid md:grid-cols-3 gap-5">
-              <a
-                href="mailto:contact@mdtanvir.com"
-                class="contact-card bg-white dark:bg-gray-900 p-6 rounded-2xl shadow-lg hover:shadow-2xl transition-all transform hover:-translate-y-1 border border-gray-200 dark:border-gray-800 text-center"
-              >
-                <div class="text-4xl mb-4 text-primary-600 dark:text-primary-400">
-                  <i class="fas fa-envelope"></i>
-                </div>
-                <h3 class="font-bold mb-2 text-gray-900 dark:text-white">Email</h3>
-                <p class="text-gray-700 dark:text-gray-300 text-sm">
-                  contact@mdtanvir.com
-                </p>
-              </a>
+            @if (session('contact_status'))
+              <div class="mb-6 rounded-xl border border-green-200 bg-green-50 px-4 py-3 text-green-800">
+                {{ session('contact_status') }}
+              </div>
+            @endif
 
-              <a
-                href="https://www.linkedin.com/in/tanvir-cs"
-                target="_blank"
-                rel="noopener noreferrer"
-                class="contact-card bg-white dark:bg-gray-900 p-6 rounded-2xl shadow-lg hover:shadow-2xl transition-all transform hover:-translate-y-1 border border-gray-200 dark:border-gray-800 text-center"
-              >
-                <div class="text-4xl mb-4 text-primary-600 dark:text-primary-400">
-                  <i class="fab fa-linkedin"></i>
-                </div>
-                <h3 class="font-bold mb-2 text-gray-900 dark:text-white">
-                  LinkedIn
-                </h3>
-                <p class="text-gray-700 dark:text-gray-300 text-sm">
-                  Connect with me
-                </p>
-              </a>
+            <div class="grid lg:grid-cols-2 gap-6">
+              <div class="grid sm:grid-cols-2 gap-5 content-start">
+                <a
+                  href="mailto:contact@mdtanvir.com"
+                  class="contact-card bg-white dark:bg-gray-900 p-6 rounded-2xl shadow-lg hover:shadow-2xl transition-all transform hover:-translate-y-1 border border-gray-200 dark:border-gray-800 text-center"
+                >
+                  <div class="text-4xl mb-4 text-primary-600 dark:text-primary-400">
+                    <i class="fas fa-envelope"></i>
+                  </div>
+                  <h3 class="font-bold mb-2 text-gray-900 dark:text-white">Email</h3>
+                  <p class="text-gray-700 dark:text-gray-300 text-sm">
+                    contact@mdtanvir.com
+                  </p>
+                </a>
 
-              <a
-                href="https://github.com/tanvir-cs"
-                target="_blank"
-                rel="noopener noreferrer"
-                class="contact-card bg-white dark:bg-gray-900 p-6 rounded-2xl shadow-lg hover:shadow-2xl transition-all transform hover:-translate-y-1 border border-gray-200 dark:border-gray-800 text-center"
-              >
-                <div class="text-4xl mb-4 text-primary-600 dark:text-primary-400">
-                  <i class="fab fa-github"></i>
+                <a
+                  href="https://www.linkedin.com/in/tanvir-cs"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  class="contact-card bg-white dark:bg-gray-900 p-6 rounded-2xl shadow-lg hover:shadow-2xl transition-all transform hover:-translate-y-1 border border-gray-200 dark:border-gray-800 text-center"
+                >
+                  <div class="text-4xl mb-4 text-primary-600 dark:text-primary-400">
+                    <i class="fab fa-linkedin"></i>
+                  </div>
+                  <h3 class="font-bold mb-2 text-gray-900 dark:text-white">
+                    LinkedIn
+                  </h3>
+                  <p class="text-gray-700 dark:text-gray-300 text-sm">
+                    Connect with me
+                  </p>
+                </a>
+
+                <a
+                  href="https://github.com/tanvir-cs"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  class="contact-card bg-white dark:bg-gray-900 p-6 rounded-2xl shadow-lg hover:shadow-2xl transition-all transform hover:-translate-y-1 border border-gray-200 dark:border-gray-800 text-center sm:col-span-2"
+                >
+                  <div class="text-4xl mb-4 text-primary-600 dark:text-primary-400">
+                    <i class="fab fa-github"></i>
+                  </div>
+                  <h3 class="font-bold mb-2 text-gray-900 dark:text-white">GitHub</h3>
+                  <p class="text-gray-700 dark:text-gray-300 text-sm">View my code</p>
+                </a>
+              </div>
+
+              <form method="POST" action="{{ route('contact.store') }}" class="bg-white dark:bg-gray-900 p-6 rounded-2xl shadow-lg border border-gray-200 dark:border-gray-800 space-y-4">
+                @csrf
+                <h3 class="text-xl font-bold text-gray-900 dark:text-white">Send a Message</h3>
+                <div>
+                  <label class="block text-sm font-medium mb-2" for="name">Name</label>
+                  <input id="name" name="name" type="text" value="{{ old('name') }}" required class="w-full rounded-xl border border-gray-300 dark:border-gray-700 bg-white dark:bg-gray-800 px-4 py-3 focus:outline-none focus:ring-2 focus:ring-primary-500" />
+                  @error('name')
+                    <p class="text-sm text-red-600 mt-1">{{ $message }}</p>
+                  @enderror
                 </div>
-                <h3 class="font-bold mb-2 text-gray-900 dark:text-white">GitHub</h3>
-                <p class="text-gray-700 dark:text-gray-300 text-sm">View my code</p>
-              </a>
+                <div>
+                  <label class="block text-sm font-medium mb-2" for="email">Email</label>
+                  <input id="email" name="email" type="email" value="{{ old('email') }}" required class="w-full rounded-xl border border-gray-300 dark:border-gray-700 bg-white dark:bg-gray-800 px-4 py-3 focus:outline-none focus:ring-2 focus:ring-primary-500" />
+                  @error('email')
+                    <p class="text-sm text-red-600 mt-1">{{ $message }}</p>
+                  @enderror
+                </div>
+                <div>
+                  <label class="block text-sm font-medium mb-2" for="subject">Subject</label>
+                  <input id="subject" name="subject" type="text" value="{{ old('subject') }}" required class="w-full rounded-xl border border-gray-300 dark:border-gray-700 bg-white dark:bg-gray-800 px-4 py-3 focus:outline-none focus:ring-2 focus:ring-primary-500" />
+                  @error('subject')
+                    <p class="text-sm text-red-600 mt-1">{{ $message }}</p>
+                  @enderror
+                </div>
+                <div>
+                  <label class="block text-sm font-medium mb-2" for="message">Message</label>
+                  <textarea id="message" name="message" rows="5" required class="w-full rounded-xl border border-gray-300 dark:border-gray-700 bg-white dark:bg-gray-800 px-4 py-3 focus:outline-none focus:ring-2 focus:ring-primary-500">{{ old('message') }}</textarea>
+                  @error('message')
+                    <p class="text-sm text-red-600 mt-1">{{ $message }}</p>
+                  @enderror
+                </div>
+                <button type="submit" class="w-full px-6 py-3 rounded-xl bg-primary-600 hover:bg-primary-700 text-white font-semibold transition">
+                  Submit Message
+                </button>
+              </form>
             </div>
 
             <div
