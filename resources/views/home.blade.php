@@ -1,5 +1,7 @@
 @extends('layouts.app')
 
+@section('meta_url', route('home'))
+
 @section('content')
 @php
   $turnstileSiteKey = config('services.turnstile.site_key');

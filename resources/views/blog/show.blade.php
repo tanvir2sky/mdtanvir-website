@@ -2,6 +2,46 @@
 
 @section('title', ($post->meta_title ?: $post->title) . ' | MD Tanvir Hossain')
 @section('meta_description', $post->meta_description ?: ($post->excerpt ?: \Illuminate\Support\Str::limit(strip_tags($post->content), 155)))
+@section('meta_type', 'article')
+@section('meta_url', route('blog.show', $post->slug))
+@section('meta_image', $post->featured_image ? url(\Illuminate\Support\Facades\Storage::url($post->featured_image)) : '')
+@section('article_published_time', $post->published_at?->toIso8601String() ?? '')
+
+@push('structured_data')
+  @php
+    $siteUrl = rtrim(config('app.url'), '/');
+    $articleSchema = [
+      '@context' => 'https://schema.org',
+      '@type' => 'BlogPosting',
+      'headline' => $post->meta_title ?: $post->title,
+      'description' => $post->meta_description ?: ($post->excerpt ?: \Illuminate\Support\Str::limit(strip_tags($post->content), 155)),
+      'url' => route('blog.show', $post->slug),
+      'datePublished' => $post->published_at?->toIso8601String(),
+      'dateModified' => $post->updated_at?->toIso8601String(),
+      'author' => [
+        '@type' => 'Person',
+        'name' => 'MD Tanvir Hossain',
+        'url' => $siteUrl,
+      ],
+      'publisher' => [
+        '@type' => 'Person',
+        'name' => 'MD Tanvir Hossain',
+        'url' => $siteUrl,
+      ],
+      'mainEntityOfPage' => [
+        '@type' => 'WebPage',
+        '@id' => route('blog.show', $post->slug),
+      ],
+    ];
+
+    if ($post->featured_image) {
+      $articleSchema['image'] = [url(\Illuminate\Support\Facades\Storage::url($post->featured_image))];
+    }
+  @endphp
+  <script type="application/ld+json">
+  {!! json_encode($articleSchema, JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE | JSON_THROW_ON_ERROR) !!}
+  </script>
+@endpush
 
 @section('content')
   @include('partials.site-header')

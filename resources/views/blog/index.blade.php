@@ -2,6 +2,7 @@
 
 @section('title', 'Blog | MD Tanvir Hossain')
 @section('meta_description', 'Insights on Laravel, PHP, Shopify, architecture, and modern web engineering by MD Tanvir Hossain.')
+@section('meta_url', route('blog.index'))
 
 @section('content')
   @include('partials.site-header')
