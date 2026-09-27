@@ -204,3 +204,213 @@ button:focus {
     display: none;
   }
 }
+
+/* ------------------------------------------------------------------
+   Blog article typography (content comes from the admin HTML editor)
+   ------------------------------------------------------------------ */
+.article-content {
+  --article-text: var(--color-gray-700);
+  --article-heading: var(--color-gray-900);
+  --article-muted: var(--color-gray-500);
+  --article-border: var(--color-gray-200);
+  --article-surface: var(--color-gray-50);
+  --article-link: var(--color-primary-600);
+  --article-code-bg: #0b1120;
+
+  color: var(--article-text);
+  font-size: 1.125rem;
+  line-height: 1.85;
+  overflow-wrap: break-word;
+}
+
+.dark .article-content {
+  --article-text: var(--color-gray-300);
+  --article-heading: #fff;
+  --article-muted: var(--color-gray-400);
+  --article-border: rgb(255 255 255 / 0.1);
+  --article-surface: rgb(255 255 255 / 0.04);
+  --article-link: var(--color-primary-400);
+  --article-code-bg: #050914;
+}
+
+.article-content > * + * {
+  margin-top: 1.4em;
+}
+
+.article-content h2,
+.article-content h3,
+.article-content h4 {
+  color: var(--article-heading);
+  font-weight: 800;
+  letter-spacing: -0.02em;
+  line-height: 1.25;
+  scroll-margin-top: 6rem;
+}
+
+.article-content h2 {
+  font-size: 1.875rem;
+  margin-top: 2.2em;
+}
+
+.article-content h3 {
+  font-size: 1.375rem;
+  margin-top: 1.8em;
+}
+
+.article-content h4 {
+  font-size: 1.125rem;
+  margin-top: 1.6em;
+}
+
+.article-content h2 + *,
+.article-content h3 + *,
+.article-content h4 + * {
+  margin-top: 0.75em;
+}
+
+.article-content > :first-child {
+  margin-top: 0;
+}
+
+.article-content a {
+  color: var(--article-link);
+  font-weight: 600;
+  text-decoration: underline;
+  text-decoration-thickness: 1px;
+  text-underline-offset: 3px;
+}
+
+.article-content a:hover {
+  text-decoration-thickness: 2px;
+}
+
+.article-content strong {
+  color: var(--article-heading);
+  font-weight: 700;
+}
+
+.article-content ul,
+.article-content ol {
+  padding-left: 1.4em;
+}
+
+.article-content ul {
+  list-style: disc;
+}
+
+.article-content ol {
+  list-style: decimal;
+}
+
+.article-content li + li {
+  margin-top: 0.5em;
+}
+
+.article-content li::marker {
+  color: var(--color-primary-500);
+}
+
+.article-content blockquote {
+  border-left: 3px solid var(--color-primary-500);
+  background: var(--article-surface);
+  border-radius: 0 1rem 1rem 0;
+  padding: 1rem 1.5rem;
+  color: var(--article-heading);
+  font-style: italic;
+}
+
+.article-content :not(pre) > code {
+  background: var(--article-surface);
+  border: 1px solid var(--article-border);
+  border-radius: 0.4rem;
+  padding: 0.12em 0.4em;
+  font-family: var(--font-mono);
+  font-size: 0.85em;
+  color: var(--article-heading);
+}
+
+.article-content pre {
+  position: relative;
+  background: var(--article-code-bg);
+  border: 1px solid rgb(255 255 255 / 0.08);
+  border-radius: 1rem;
+  padding: 1.25rem 1.5rem;
+  overflow-x: auto;
+  color: #e2e8f0;
+  font-family: var(--font-mono);
+  font-size: 0.875rem;
+  line-height: 1.7;
+  box-shadow: 0 20px 40px -24px rgb(2 132 199 / 0.35);
+}
+
+.article-content pre code {
+  font-family: inherit;
+  background: none;
+  padding: 0;
+}
+
+.article-content img,
+.article-content video,
+.article-content iframe {
+  max-width: 100%;
+  border-radius: 1rem;
+  border: 1px solid var(--article-border);
+}
+
+.article-content hr {
+  border: 0;
+  height: 1px;
+  background: var(--article-border);
+  margin: 3em 0;
+}
+
+.article-content table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.95rem;
+  display: block;
+  overflow-x: auto;
+}
+
+.article-content th,
+.article-content td {
+  border-bottom: 1px solid var(--article-border);
+  padding: 0.7em 0.9em;
+  text-align: left;
+}
+
+.article-content th {
+  color: var(--article-heading);
+  font-weight: 700;
+}
+
+/* Callout: <div class="callout"> in post HTML */
+.article-content .callout {
+  border: 1px solid var(--article-border);
+  background: var(--article-surface);
+  border-radius: 1rem;
+  padding: 1.1rem 1.4rem;
+  font-size: 1rem;
+}
+
+.article-content .callout::before {
+  content: "Note";
+  display: block;
+  margin-bottom: 0.35em;
+  color: var(--color-primary-500);
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+}
+
+/* Table of contents: active section */
+[data-toc-link].is-active {
+  border-color: var(--color-primary-500);
+  color: var(--color-primary-600);
+  font-weight: 600;
+}
+
+.dark [data-toc-link].is-active {
+  color: var(--color-primary-300);
+}

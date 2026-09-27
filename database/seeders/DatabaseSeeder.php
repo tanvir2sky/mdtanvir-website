@@ -34,5 +34,7 @@ class DatabaseSeeder extends Seeder
             'enable_clarity' => false,
             'clarity_project_id' => null,
         ]);
+
+        $this->call(PostSeeder::class);
     }
 }

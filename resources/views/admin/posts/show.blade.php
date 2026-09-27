@@ -18,6 +18,12 @@
       @if ($post->published_at)
         | {{ $post->published_at->format('M d, Y H:i') }}
       @endif
+      @if ($post->category)
+        | {{ $post->category }}
+      @endif
+      @if ($post->is_featured)
+        | Featured
+      @endif
     </p>
 
     @if ($post->excerpt)
@@ -28,7 +34,7 @@
       <img src="{{ \Illuminate\Support\Facades\Storage::url($post->featured_image) }}" alt="{{ $post->title }}" class="w-full max-h-[420px] object-cover rounded-xl border border-gray-200 dark:border-gray-700 mb-8" />
     @endif
 
-    <div class="prose max-w-none dark:prose-invert">
+    <div class="article-content">
       {!! $post->content !!}
     </div>
   </article>

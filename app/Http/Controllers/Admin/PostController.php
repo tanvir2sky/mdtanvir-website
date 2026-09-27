@@ -97,16 +97,33 @@ class PostController extends Controller
 
     private function validatedData(Request $request): array
     {
-        return $request->validate([
+        $data = $request->validate([
             'title' => ['required', 'string', 'max:255'],
+            'category' => ['nullable', 'string', 'max:60'],
+            'tags' => ['nullable', 'string', 'max:500'],
             'excerpt' => ['nullable', 'string', 'max:320'],
             'content' => ['required', 'string'],
             'meta_title' => ['nullable', 'string', 'max:255'],
             'meta_description' => ['nullable', 'string', 'max:320'],
             'featured_image' => ['nullable', 'image', 'max:5120'],
             'is_published' => ['nullable', 'boolean'],
+            'is_featured' => ['nullable', 'boolean'],
             'published_at' => ['nullable', 'date'],
-        ]) + ['is_published' => $request->boolean('is_published')];
+        ]);
+
+        $tags = collect(explode(',', (string) ($data['tags'] ?? '')))
+            ->map(fn ($tag) => trim($tag))
+            ->filter()
+            ->unique(fn ($tag) => mb_strtolower($tag))
+            ->values()
+            ->all();
+
+        return [
+            'category' => filled($data['category'] ?? null) ? trim($data['category']) : null,
+            'tags' => $tags ?: null,
+            'is_published' => $request->boolean('is_published'),
+            'is_featured' => $request->boolean('is_featured'),
+        ] + $data;
     }
 
     private function storeFeaturedImage(Request $request): ?string

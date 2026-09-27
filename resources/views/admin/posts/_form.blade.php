@@ -12,6 +12,34 @@
     @enderror
   </div>
 
+  <div class="grid sm:grid-cols-2 gap-5">
+    <div>
+      <label for="category" class="block mb-2 text-sm font-medium">Category</label>
+      <input id="category" name="category" type="text" list="category-options" maxlength="60"
+        value="{{ old('category', $post?->category) }}" placeholder="e.g. Laravel"
+        class="w-full rounded-xl border border-gray-300 dark:border-gray-700 bg-white dark:bg-gray-800 px-4 py-3 focus:ring-2 focus:ring-primary-500 focus:outline-none" />
+      <datalist id="category-options">
+        @foreach (array_keys(config('blog.categories')) as $categoryOption)
+          <option value="{{ $categoryOption }}"></option>
+        @endforeach
+      </datalist>
+      <p class="mt-1 text-xs text-gray-500">Pick a suggestion to get its colour and icon, or type a new one.</p>
+      @error('category')
+        <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
+      @enderror
+    </div>
+    <div>
+      <label for="tags" class="block mb-2 text-sm font-medium">Tags</label>
+      <input id="tags" name="tags" type="text"
+        value="{{ old('tags', implode(', ', $post?->tags ?? [])) }}" placeholder="queues, redis, horizon"
+        class="w-full rounded-xl border border-gray-300 dark:border-gray-700 bg-white dark:bg-gray-800 px-4 py-3 focus:ring-2 focus:ring-primary-500 focus:outline-none" />
+      <p class="mt-1 text-xs text-gray-500">Comma-separated.</p>
+      @error('tags')
+        <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
+      @enderror
+    </div>
+  </div>
+
   <div>
     <label for="excerpt" class="block mb-2 text-sm font-medium">Excerpt</label>
     <textarea id="excerpt" name="excerpt" rows="3"
@@ -75,10 +103,16 @@
     @endif
   </div>
 
-  <label class="flex items-center gap-2">
-    <input type="checkbox" name="is_published" value="1" {{ old('is_published', $post?->is_published) ? 'checked' : '' }} />
-    <span>Published</span>
-  </label>
+  <div class="flex flex-wrap items-center gap-6">
+    <label class="flex items-center gap-2">
+      <input type="checkbox" name="is_published" value="1" {{ old('is_published', $post?->is_published) ? 'checked' : '' }} />
+      <span>Published</span>
+    </label>
+    <label class="flex items-center gap-2">
+      <input type="checkbox" name="is_featured" value="1" {{ old('is_featured', $post?->is_featured) ? 'checked' : '' }} />
+      <span>Featured <span class="text-xs text-gray-500">(the latest featured post is shown large at the top of the blog)</span></span>
+    </label>
+  </div>
 
   <div class="flex items-center gap-3 pt-3">
     <button type="submit" class="px-5 py-3 rounded-xl bg-primary-600 hover:bg-primary-700 text-white font-semibold">

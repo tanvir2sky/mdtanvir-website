@@ -454,20 +454,7 @@
 
             <div class="grid md:grid-cols-3 gap-6">
               @foreach ($latestPosts as $post)
-                <a
-                  href="{{ route('blog.show', $post->slug) }}"
-                  class="group block bg-white/80 dark:bg-gray-900/80 rounded-2xl p-6 border border-gray-200 dark:border-gray-800 shadow-lg hover:shadow-2xl hover:-translate-y-1 transition-all"
-                >
-                  <p class="text-xs text-gray-500 mb-2">
-                    {{ $post->published_at?->format('M d, Y') }} · {{ $post->readingTime() }} min read
-                  </p>
-                  <h3 class="text-lg font-bold text-gray-900 dark:text-white group-hover:text-primary-600 dark:group-hover:text-primary-400 transition-colors mb-2">
-                    {{ $post->title }}
-                  </h3>
-                  <p class="text-sm text-gray-700 dark:text-gray-300">
-                    {{ $post->excerpt ?: \Illuminate\Support\Str::limit(strip_tags($post->content), 120) }}
-                  </p>
-                </a>
+                @include('blog.partials.card', ['post' => $post])
               @endforeach
             </div>
           </div>

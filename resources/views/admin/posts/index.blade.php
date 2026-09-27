@@ -19,7 +19,7 @@
         <tr>
           <th class="px-5 py-3 font-semibold">Image</th>
           <th class="px-5 py-3 font-semibold">Title</th>
-          <th class="px-5 py-3 font-semibold">Slug</th>
+          <th class="px-5 py-3 font-semibold">Category</th>
           <th class="px-5 py-3 font-semibold">Status</th>
           <th class="px-5 py-3 font-semibold">Published At</th>
           <th class="px-5 py-3 font-semibold">Actions</th>
@@ -35,8 +35,16 @@
                 <span class="text-xs text-gray-500">No image</span>
               @endif
             </td>
-            <td class="px-5 py-4 font-semibold">{{ $post->title }}</td>
-            <td class="px-5 py-4 text-gray-600 dark:text-gray-400">{{ $post->slug }}</td>
+            <td class="px-5 py-4">
+              <p class="font-semibold">
+                {{ $post->title }}
+                @if ($post->is_featured)
+                  <i class="fas fa-star ml-1 text-amber-500" title="Featured"></i>
+                @endif
+              </p>
+              <p class="text-xs text-gray-500">{{ $post->slug }}</p>
+            </td>
+            <td class="px-5 py-4 text-gray-600 dark:text-gray-400">{{ $post->category ?? '-' }}</td>
             <td class="px-5 py-4">
               <span class="inline-flex px-2.5 py-1 rounded-full text-xs font-semibold {{ $post->is_published ? 'bg-green-100 text-green-800' : 'bg-gray-200 text-gray-700' }}">
                 {{ $post->is_published ? 'Published' : 'Draft' }}

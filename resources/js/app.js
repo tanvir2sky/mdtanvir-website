@@ -2,6 +2,7 @@ import "./bootstrap";
 import "particles.js";
 import "./terminal";
 import "./project-brief";
+import "./blog";
 
 // Theme Toggle
 const themeToggle = document.getElementById("theme-toggle");
