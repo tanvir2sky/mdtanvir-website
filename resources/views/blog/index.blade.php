@@ -21,10 +21,10 @@
         @forelse ($posts as $post)
           <article class="bg-white/85 dark:bg-gray-900/80 border border-gray-200 dark:border-gray-800 rounded-2xl overflow-hidden shadow-lg">
             @if ($post->featured_image)
-              <img src="{{ \Illuminate\Support\Facades\Storage::url($post->featured_image) }}" alt="{{ $post->title }}" class="w-full h-48 object-cover" />
+              <img src="{{ \Illuminate\Support\Facades\Storage::url($post->featured_image) }}" alt="{{ $post->title }}" loading="lazy" class="w-full h-48 object-cover" />
             @endif
             <div class="p-6">
-            <p class="text-xs text-gray-500 mb-2">{{ $post->published_at?->format('M d, Y') }}</p>
+            <p class="text-xs text-gray-500 mb-2">{{ $post->published_at?->format('M d, Y') }} · {{ $post->readingTime() }} min read</p>
             <h2 class="text-xl font-bold mb-3">
               <a href="{{ route('blog.show', $post->slug) }}" class="hover:text-primary-600 dark:hover:text-primary-400 transition">
                 {{ $post->title }}

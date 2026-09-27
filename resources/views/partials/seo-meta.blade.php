@@ -1,7 +1,7 @@
 @php
   $siteUrl = rtrim(config('app.url'), '/');
   $defaultTitle = 'MD Tanvir Hossain | Software Engineer';
-  $defaultDescription = 'MD Tanvir Hossain - Software Engineer specializing in Laravel, PHP, Shopify, and modern web development';
+  $defaultDescription = 'MD Tanvir Hossain - Software Engineer specializing in Laravel, PHP, Shopify, AI/LLM integration, and modern web development';
   $defaultImage = asset('img/profile.jpg');
 
   $seoTitle = trim($__env->yieldContent('title')) ?: $defaultTitle;
@@ -34,6 +34,8 @@
           'Laravel',
           'PHP',
           'Shopify',
+          'Large Language Models',
+          'AI Integration',
           'Web Development',
           'Software Architecture',
         ],

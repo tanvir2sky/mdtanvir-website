@@ -145,14 +145,22 @@
                 style="animation-delay: 0.1s"
               >
                 Software Engineer
+                <span class="text-gray-400 dark:text-gray-500 font-medium">at</span>
+                <a
+                  href="https://altruan.de"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  class="bg-gradient-to-r from-cyan-500 to-primary-600 dark:from-cyan-300 dark:to-primary-400 bg-clip-text text-transparent hover:opacity-80 transition-opacity"
+                  >Altruan GmbH</a
+                >
               </h2>
               <p
                 class="text-lg md:text-xl leading-relaxed text-gray-600 dark:text-gray-300 max-w-2xl mb-8 animate-slide-up"
                 style="animation-delay: 0.2s"
               >
-                Crafting robust web solutions with Laravel, PHP, and Shopify.
-                Passionate about clean code, scalable architecture, and
-                delivering exceptional digital experiences.
+                Crafting robust web solutions with Laravel, PHP, Shopify, and
+                AI-powered features. Passionate about clean code, scalable
+                architecture, and delivering exceptional digital experiences.
               </p>
 
               <div
@@ -181,6 +189,15 @@
                 >
                   <i class="fab fa-github mr-2 text-primary-600 dark:text-primary-400"></i>GitHub
                 </a>
+                @if ($cvUrl)
+                  <a
+                    href="{{ $cvUrl }}"
+                    download
+                    class="px-6 sm:px-8 py-3 rounded-xl font-semibold border border-gray-300 dark:border-gray-700 bg-white/80 dark:bg-gray-900/80 hover:bg-gray-100 dark:hover:bg-gray-800 transition-all"
+                  >
+                    <i class="fas fa-file-arrow-down mr-2 text-primary-600 dark:text-primary-400"></i>Download CV
+                  </a>
+                @endif
               </div>
 
               <div class="mt-10 grid sm:grid-cols-3 gap-4 max-w-2xl">
@@ -235,13 +252,14 @@
                   />
                   <div class="mt-6 text-center">
                     <p class="text-xl font-bold text-gray-900 dark:text-white">
-                      Laravel | PHP | Shopify
+                      Laravel | PHP | Shopify | AI
                     </p>
                     <p class="mt-2 text-sm text-gray-600 dark:text-gray-400">
                       Building secure, scalable, and high-performance products.
                     </p>
                   </div>
                 </div>
+                @include('partials.hero-terminal')
               </div>
             </div>
           </div>
@@ -288,6 +306,14 @@
                 custom storefronts for businesses of all sizes.
               </p>
               <p class="text-lg text-gray-700 dark:text-gray-300 leading-relaxed">
+                More recently, I've been bringing
+                <strong class="text-primary-600 dark:text-primary-400">AI</strong>
+                into production: integrating large language models into Laravel
+                applications to power real product features, and working with
+                AI coding assistants and agentic workflows every day to ship
+                faster without compromising on quality.
+              </p>
+              <p class="text-lg text-gray-700 dark:text-gray-300 leading-relaxed">
                 Beyond coding, I'm dedicated to continuous learning, staying
                 updated with industry best practices, and contributing to the
                 developer community. I believe in building software that not
@@ -312,7 +338,7 @@
             </h2>
           </div>
 
-          <div class="grid md:grid-cols-2 xl:grid-cols-4 gap-6">
+          <div class="grid md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 gap-6">
             <article
               class="skill-card bg-white/80 dark:bg-gray-900/80 p-6 rounded-2xl shadow-lg hover:shadow-2xl transition-all transform hover:-translate-y-1 border border-gray-200 dark:border-gray-800"
             >
@@ -370,6 +396,24 @@
               class="skill-card bg-white/80 dark:bg-gray-900/80 p-6 rounded-2xl shadow-lg hover:shadow-2xl transition-all transform hover:-translate-y-1 border border-gray-200 dark:border-gray-800"
             >
               <div class="text-3xl mb-4 text-primary-600 dark:text-primary-400">
+                <i class="fas fa-robot"></i>
+              </div>
+              <h3 class="text-xl font-bold mb-4 text-gray-900 dark:text-white">
+                AI & LLM
+              </h3>
+              <ul class="space-y-2 text-gray-700 dark:text-gray-300">
+                <li class="flex items-center"><i class="fas fa-check-circle text-primary-600 dark:text-primary-400 mr-2"></i>LLM API Integration</li>
+                <li class="flex items-center"><i class="fas fa-check-circle text-primary-600 dark:text-primary-400 mr-2"></i>Prompt Engineering</li>
+                <li class="flex items-center"><i class="fas fa-check-circle text-primary-600 dark:text-primary-400 mr-2"></i>AI Product Features</li>
+                <li class="flex items-center"><i class="fas fa-check-circle text-primary-600 dark:text-primary-400 mr-2"></i>Claude Code & Copilot</li>
+                <li class="flex items-center"><i class="fas fa-check-circle text-primary-600 dark:text-primary-400 mr-2"></i>Agentic Workflows</li>
+              </ul>
+            </article>
+
+            <article
+              class="skill-card bg-white/80 dark:bg-gray-900/80 p-6 rounded-2xl shadow-lg hover:shadow-2xl transition-all transform hover:-translate-y-1 border border-gray-200 dark:border-gray-800"
+            >
+              <div class="text-3xl mb-4 text-primary-600 dark:text-primary-400">
                 <i class="fas fa-tools"></i>
               </div>
               <h3 class="text-xl font-bold mb-4 text-gray-900 dark:text-white">
@@ -387,232 +431,48 @@
         </div>
       </section>
 
-      <section
-        id="experience"
-        class="py-20 sm:py-24 px-4 sm:px-6 lg:px-8 bg-gray-50/80 dark:bg-gray-900/70"
-      >
-        <div class="max-w-5xl mx-auto">
-          <div class="text-center mb-12">
-            <p
-              class="text-sm font-semibold uppercase tracking-wider text-primary-700 dark:text-primary-300 mb-3"
-            >
-              Professional Experience
-            </p>
-            <h2 class="text-4xl md:text-5xl font-black text-gray-900 dark:text-white">
-              Career timeline
-            </h2>
-          </div>
+      @include('partials.experience')
 
-          <div class="relative">
-            <div
-              class="absolute left-4 md:left-1/2 top-0 bottom-0 w-0.5 bg-primary-300 dark:bg-primary-700 transform md:-translate-x-1/2"
-            ></div>
+      @include('partials.projects')
 
-            <div class="space-y-8">
-              <article class="relative flex items-start">
-                <span
-                  class="absolute left-2 md:left-1/2 w-4 h-4 rounded-full bg-primary-600 transform md:-translate-x-1/2 mt-8 ring-4 ring-white dark:ring-gray-900"
-                ></span>
-                <div class="ml-12 md:ml-0 md:w-1/2 md:pr-10">
-                  <div
-                    class="bg-white dark:bg-gray-900 rounded-2xl p-6 border border-gray-200 dark:border-gray-800 shadow-lg"
-                  >
-                    <div class="flex items-center justify-between mb-2 gap-3">
-                      <h3 class="text-xl font-bold text-gray-900 dark:text-white">
-                        Software Engineer
-                      </h3>
-                      <span class="text-sm font-semibold text-primary-600 dark:text-primary-400"
-                        >Present</span
-                      >
-                    </div>
-                    <p class="text-primary-600 dark:text-primary-400 font-semibold mb-3">
-                      <a
-                        href="https://altruan.de"
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        class="hover:underline"
-                        >Altruan GMBH</a
-                      >
-                    </p>
-                    <p class="text-gray-700 dark:text-gray-300 leading-relaxed">
-                      Developing and maintaining scalable web applications using
-                      Laravel and PHP. Building custom Shopify solutions and
-                      RESTful APIs. Collaborating with cross-functional teams to
-                      deliver high-quality software solutions.
-                    </p>
-                  </div>
-                </div>
-              </article>
+      @if ($latestPosts->isNotEmpty())
+        <section id="blog" class="py-20 sm:py-24 px-4 sm:px-6 lg:px-8">
+          <div class="max-w-7xl mx-auto">
+            <div class="flex flex-wrap items-end justify-between gap-4 mb-10">
+              <div>
+                <p class="text-sm font-semibold uppercase tracking-wider text-primary-700 dark:text-primary-300 mb-3">
+                  From the Blog
+                </p>
+                <h2 class="text-4xl md:text-5xl font-black text-gray-900 dark:text-white">
+                  Latest writing
+                </h2>
+              </div>
+              <a href="{{ route('blog.index') }}" class="text-sm font-semibold text-primary-600 dark:text-primary-400 hover:underline">
+                View all posts <i class="fas fa-arrow-right ml-1"></i>
+              </a>
+            </div>
 
-              <article class="relative flex items-start md:flex-row-reverse">
-                <span
-                  class="absolute left-2 md:left-1/2 w-4 h-4 rounded-full bg-primary-600 transform md:-translate-x-1/2 mt-8 ring-4 ring-white dark:ring-gray-900"
-                ></span>
-                <div class="ml-12 md:ml-0 md:w-1/2 md:pl-10">
-                  <div
-                    class="bg-white dark:bg-gray-900 rounded-2xl p-6 border border-gray-200 dark:border-gray-800 shadow-lg"
-                  >
-                    <div class="flex items-center justify-between mb-2 gap-3">
-                      <h3 class="text-xl font-bold text-gray-900 dark:text-white">
-                        Full Stack Developer
-                      </h3>
-                      <span class="text-sm font-semibold text-primary-600 dark:text-primary-400"
-                        >2020 - 2025</span
-                      >
-                    </div>
-                    <p class="text-primary-600 dark:text-primary-400 font-semibold mb-3">
-                      <a
-                        href="https://technoplusit.com.au"
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        class="hover:underline"
-                        >technoPLUS IT</a
-                      >
-                    </p>
-                    <p class="text-gray-700 dark:text-gray-300 leading-relaxed">
-                      Built responsive web applications from concept to
-                      deployment. Implemented frontend interfaces with modern
-                      CSS and JavaScript, and developed robust backend systems
-                      with Laravel framework.
-                    </p>
-                  </div>
-                </div>
-              </article>
-
-              <article class="relative flex items-start">
-                <span
-                  class="absolute left-2 md:left-1/2 w-4 h-4 rounded-full bg-primary-600 transform md:-translate-x-1/2 mt-8 ring-4 ring-white dark:ring-gray-900"
-                ></span>
-                <div class="ml-12 md:ml-0 md:w-1/2 md:pr-10">
-                  <div
-                    class="bg-white dark:bg-gray-900 rounded-2xl p-6 border border-gray-200 dark:border-gray-800 shadow-lg"
-                  >
-                    <div class="flex items-center justify-between mb-2 gap-3">
-                      <h3 class="text-xl font-bold text-gray-900 dark:text-white">
-                        Junior Developer
-                      </h3>
-                      <span class="text-sm font-semibold text-primary-600 dark:text-primary-400"
-                        >2018 - 2020</span
-                      >
-                    </div>
-                    <p class="text-primary-600 dark:text-primary-400 font-semibold mb-3">
-                      <a
-                        href="https://www.creativeitem.com"
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        class="hover:underline"
-                        >Creativeitem</a
-                      >
-                    </p>
-                    <p class="text-gray-700 dark:text-gray-300 leading-relaxed">
-                      Started my professional journey working on PHP-based
-                      projects. Gained expertise in database design, API
-                      development, and modern web development practices.
-                      Contributed to building high-quality web applications and
-                      digital products.
-                    </p>
-                  </div>
-                </div>
-              </article>
+            <div class="grid md:grid-cols-3 gap-6">
+              @foreach ($latestPosts as $post)
+                <a
+                  href="{{ route('blog.show', $post->slug) }}"
+                  class="group block bg-white/80 dark:bg-gray-900/80 rounded-2xl p-6 border border-gray-200 dark:border-gray-800 shadow-lg hover:shadow-2xl hover:-translate-y-1 transition-all"
+                >
+                  <p class="text-xs text-gray-500 mb-2">
+                    {{ $post->published_at?->format('M d, Y') }} · {{ $post->readingTime() }} min read
+                  </p>
+                  <h3 class="text-lg font-bold text-gray-900 dark:text-white group-hover:text-primary-600 dark:group-hover:text-primary-400 transition-colors mb-2">
+                    {{ $post->title }}
+                  </h3>
+                  <p class="text-sm text-gray-700 dark:text-gray-300">
+                    {{ $post->excerpt ?: \Illuminate\Support\Str::limit(strip_tags($post->content), 120) }}
+                  </p>
+                </a>
+              @endforeach
             </div>
           </div>
-        </div>
-      </section>
-
-      <section id="projects" class="py-20 sm:py-24 px-4 sm:px-6 lg:px-8">
-        <div class="max-w-7xl mx-auto">
-          <div class="text-center mb-12">
-            <p
-              class="text-sm font-semibold uppercase tracking-wider text-primary-700 dark:text-primary-300 mb-3"
-            >
-              Featured Projects
-            </p>
-            <h2 class="text-4xl md:text-5xl font-black text-gray-900 dark:text-white">
-              Work highlights
-            </h2>
-          </div>
-
-          <div class="grid md:grid-cols-2 xl:grid-cols-3 gap-7">
-            <article
-              class="project-card group bg-white/80 dark:bg-gray-900/80 rounded-2xl shadow-lg hover:shadow-2xl transition-all transform hover:-translate-y-1 border border-gray-200 dark:border-gray-800 overflow-hidden"
-            >
-              <div
-                class="h-44 bg-gradient-to-br from-primary-400 via-primary-500 to-primary-700 flex items-center justify-center"
-              >
-                <i class="fas fa-shopping-bag text-5xl text-white/90"></i>
-              </div>
-              <div class="p-6">
-                <h3 class="text-xl font-bold mb-2 text-gray-900 dark:text-white">
-                  E-commerce Platform
-                </h3>
-                <p class="text-gray-700 dark:text-gray-300 mb-4 leading-relaxed">
-                  A full-featured e-commerce solution built with Laravel and
-                  Shopify integration. Includes custom storefront, payment
-                  processing, and inventory management.
-                </p>
-                <div class="flex flex-wrap gap-2">
-                  <span class="px-3 py-1 bg-primary-100 dark:bg-primary-900 text-primary-700 dark:text-primary-300 rounded-full text-sm">Laravel</span>
-                  <span class="px-3 py-1 bg-primary-100 dark:bg-primary-900 text-primary-700 dark:text-primary-300 rounded-full text-sm">Shopify</span>
-                  <span class="px-3 py-1 bg-primary-100 dark:bg-primary-900 text-primary-700 dark:text-primary-300 rounded-full text-sm">PHP</span>
-                </div>
-              </div>
-            </article>
-
-            <article
-              class="project-card group bg-white/80 dark:bg-gray-900/80 rounded-2xl shadow-lg hover:shadow-2xl transition-all transform hover:-translate-y-1 border border-gray-200 dark:border-gray-800 overflow-hidden"
-            >
-              <div
-                class="h-44 bg-gradient-to-br from-primary-500 to-primary-800 flex items-center justify-center"
-              >
-                <i class="fab fa-shopify text-5xl text-white/90"></i>
-              </div>
-              <div class="p-6">
-                <h3 class="text-xl font-bold mb-2 text-gray-900 dark:text-white">
-                  Shopify App
-                </h3>
-                <p class="text-gray-700 dark:text-gray-300 mb-4 leading-relaxed">
-                  Custom Shopify application built with Laravel and Shopify API
-                  integration. Features include product management, order
-                  processing, and automated workflows for e-commerce stores.
-                </p>
-                <div class="flex flex-wrap gap-2">
-                  <span class="px-3 py-1 bg-primary-100 dark:bg-primary-900 text-primary-700 dark:text-primary-300 rounded-full text-sm">Laravel</span>
-                  <span class="px-3 py-1 bg-primary-100 dark:bg-primary-900 text-primary-700 dark:text-primary-300 rounded-full text-sm">Shopify API</span>
-                  <span class="px-3 py-1 bg-primary-100 dark:bg-primary-900 text-primary-700 dark:text-primary-300 rounded-full text-sm">PHP</span>
-                  <span class="px-3 py-1 bg-primary-100 dark:bg-primary-900 text-primary-700 dark:text-primary-300 rounded-full text-sm">REST API</span>
-                </div>
-              </div>
-            </article>
-
-            <article
-              class="project-card group bg-white/80 dark:bg-gray-900/80 rounded-2xl shadow-lg hover:shadow-2xl transition-all transform hover:-translate-y-1 border border-gray-200 dark:border-gray-800 overflow-hidden"
-            >
-              <div
-                class="h-44 bg-gradient-to-br from-primary-600 to-primary-900 flex items-center justify-center"
-              >
-                <i class="fas fa-chart-pie text-5xl text-white/90"></i>
-              </div>
-              <div class="p-6">
-                <h3 class="text-xl font-bold mb-2 text-gray-900 dark:text-white">
-                  Financial App
-                </h3>
-                <p class="text-gray-700 dark:text-gray-300 mb-4 leading-relaxed">
-                  Comprehensive financial management application built with
-                  Laravel. Features include transaction tracking, budget
-                  management, financial reporting, and secure payment
-                  processing.
-                </p>
-                <div class="flex flex-wrap gap-2">
-                  <span class="px-3 py-1 bg-primary-100 dark:bg-primary-900 text-primary-700 dark:text-primary-300 rounded-full text-sm">Laravel</span>
-                  <span class="px-3 py-1 bg-primary-100 dark:bg-primary-900 text-primary-700 dark:text-primary-300 rounded-full text-sm">PHP</span>
-                  <span class="px-3 py-1 bg-primary-100 dark:bg-primary-900 text-primary-700 dark:text-primary-300 rounded-full text-sm">MySQL</span>
-                  <span class="px-3 py-1 bg-primary-100 dark:bg-primary-900 text-primary-700 dark:text-primary-300 rounded-full text-sm">Payment Gateway</span>
-                </div>
-              </div>
-            </article>
-          </div>
-        </div>
-      </section>
+        </section>
+      @endif
 
       <section
         id="contact"
@@ -638,8 +498,22 @@
             </div>
 
             @if (session('contact_status'))
-              <div class="mb-6 rounded-xl border border-green-200 bg-green-50 px-4 py-3 text-green-800">
-                {{ session('contact_status') }}
+              <div
+                role="status"
+                class="mb-6 flex items-start gap-3 rounded-xl border border-green-200 bg-green-50 px-4 py-3 text-green-800 dark:border-green-800 dark:bg-green-900/30 dark:text-green-200"
+              >
+                <i class="fas fa-circle-check mt-1"></i>
+                <span>{{ session('contact_status') }}</span>
+              </div>
+            @endif
+
+            @if ($errors->any())
+              <div
+                role="alert"
+                class="mb-6 flex items-start gap-3 rounded-xl border border-red-200 bg-red-50 px-4 py-3 text-red-800 dark:border-red-800 dark:bg-red-900/30 dark:text-red-200"
+              >
+                <i class="fas fa-circle-exclamation mt-1"></i>
+                <span>Your message wasn't sent. Please fix the highlighted fields and try again.</span>
               </div>
             @endif
 
@@ -689,7 +563,10 @@
                 </a>
               </div>
 
-              <form method="POST" action="{{ route('contact.store') }}" class="bg-white dark:bg-gray-900 p-6 rounded-2xl shadow-lg border border-gray-200 dark:border-gray-800 space-y-4">
+              <div class="space-y-5">
+              @include('partials.project-brief')
+
+              <form id="contact-form" method="POST" action="{{ route('contact.store') }}" class="bg-white dark:bg-gray-900 p-6 rounded-2xl shadow-lg border border-gray-200 dark:border-gray-800 space-y-4">
                 @csrf
                 <h3 class="text-xl font-bold text-gray-900 dark:text-white">Send a Message</h3>
                 <div>
@@ -731,17 +608,18 @@
                     @enderror
                   </div>
                 @endif
-                <button type="submit" class="w-full px-6 py-3 rounded-xl bg-primary-600 hover:bg-primary-700 text-white font-semibold transition">
+                <button type="submit" class="w-full px-6 py-3 rounded-xl bg-primary-600 hover:bg-primary-700 disabled:opacity-60 disabled:cursor-wait text-white font-semibold transition">
                   Submit Message
                 </button>
               </form>
+              </div>
             </div>
 
             <div
               class="mt-10 pt-6 border-t border-gray-200 dark:border-gray-800 text-center"
             >
               <p class="text-gray-600 dark:text-gray-400">
-                © 2026 MD Tanvir Hossain. All rights reserved.
+                © {{ now()->year }} MD Tanvir Hossain. All rights reserved.
               </p>
             </div>
           </div>

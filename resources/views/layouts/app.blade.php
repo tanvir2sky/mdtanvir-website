@@ -14,11 +14,11 @@
     <meta name="csrf-token" content="{{ csrf_token() }}" />
     <meta
       name="description"
-      content="@yield('meta_description', 'MD Tanvir Hossain - Software Engineer specializing in Laravel, PHP, Shopify, and modern web development')"
+      content="@yield('meta_description', 'MD Tanvir Hossain - Software Engineer specializing in Laravel, PHP, Shopify, AI/LLM integration, and modern web development')"
     />
     <meta
       name="keywords"
-      content="@yield('meta_keywords', 'MD Tanvir Hossain, Software Engineer, Laravel, PHP, Shopify, Web Developer')"
+      content="@yield('meta_keywords', 'MD Tanvir Hossain, Software Engineer, Laravel, PHP, Shopify, AI, LLM integration, Web Developer')"
     />
     <meta name="author" content="MD Tanvir Hossain" />
     <title>@yield('title', 'MD Tanvir Hossain | Software Engineer')</title>
@@ -27,6 +27,7 @@
     <link rel="icon" href="{{ asset('img/favicon/favicon.svg') }}" type="image/svg+xml" />
     <link rel="icon" href="{{ asset('img/favicon/favicon-32.png') }}" type="image/png" sizes="32x32" />
     <link rel="apple-touch-icon" href="{{ asset('img/favicon/favicon-256.png') }}" />
+    <link rel="alternate" type="application/rss+xml" title="MD Tanvir Hossain Blog" href="{{ route('feed') }}" />
 
     @include('partials.seo-meta')
 

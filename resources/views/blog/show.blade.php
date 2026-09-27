@@ -52,7 +52,7 @@
         <i class="fas fa-arrow-left mr-2"></i>Back to blog
       </a>
 
-      <p class="mt-5 text-sm text-gray-500">{{ $post->published_at?->format('F d, Y') }}</p>
+      <p class="mt-5 text-sm text-gray-500">{{ $post->published_at?->format('F d, Y') }} · {{ $post->readingTime() }} min read</p>
       <h1 class="text-3xl sm:text-4xl font-black mt-2 mb-4 text-gray-900 dark:text-white">{{ $post->title }}</h1>
 
       @if ($post->excerpt)

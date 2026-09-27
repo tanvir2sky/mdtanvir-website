@@ -27,6 +27,11 @@ class Post extends Model
         ];
     }
 
+    public function readingTime(): int
+    {
+        return max(1, (int) ceil(str_word_count(strip_tags((string) $this->content)) / 200));
+    }
+
     public function scopePublished(Builder $query): void
     {
         $query

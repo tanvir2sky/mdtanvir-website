@@ -77,6 +77,31 @@ html {
   scroll-behavior: smooth;
 }
 
+/* Keep anchored sections clear of the fixed navbar */
+section[id] {
+  scroll-margin-top: 5rem;
+}
+
+/* Project cards: soft glow that follows the cursor */
+.spotlight-card::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  background: radial-gradient(
+    420px circle at var(--x, 50%) var(--y, 50%),
+    var(--spotlight, rgba(14, 165, 233, 0.16)),
+    transparent 65%
+  );
+}
+
+.spotlight-card:hover::before {
+  opacity: 1;
+}
+
 /* Particles.js container */
 #particles-js {
   position: fixed;
@@ -135,15 +160,6 @@ section[id].visible {
 }
 
 .dark .skill-card:hover {
-  border-color: #38bdf8;
-}
-
-/* Project card hover effect */
-.project-card:hover {
-  border-color: #0ea5e9;
-}
-
-.dark .project-card:hover {
   border-color: #38bdf8;
 }
 

@@ -1,5 +1,7 @@
 import "./bootstrap";
 import "particles.js";
+import "./terminal";
+import "./project-brief";
 
 // Theme Toggle
 const themeToggle = document.getElementById("theme-toggle");
@@ -172,6 +174,43 @@ projectCards.forEach((card, index) => {
   card.style.animationDelay = `${index * 0.15}s`;
 });
 
+// Spotlight glow that follows the cursor on project cards
+document.querySelectorAll("[data-spotlight]").forEach((card) => {
+  card.addEventListener("pointermove", (event) => {
+    const rect = card.getBoundingClientRect();
+    card.style.setProperty("--x", `${event.clientX - rect.left}px`);
+    card.style.setProperty("--y", `${event.clientY - rect.top}px`);
+  });
+});
+
+// Career timeline: the gradient rail fills in as you scroll through it
+const timeline = document.querySelector("[data-timeline]");
+const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+if (timeline && !reduceMotion) {
+  let ticking = false;
+
+  const updateTimelineProgress = () => {
+    const rect = timeline.getBoundingClientRect();
+    const start = window.innerHeight * 0.75;
+    const progress = Math.min(1, Math.max(0, (start - rect.top) / rect.height));
+    timeline.style.setProperty("--timeline-progress", progress.toFixed(3));
+    ticking = false;
+  };
+
+  window.addEventListener(
+    "scroll",
+    () => {
+      if (!ticking) {
+        ticking = true;
+        requestAnimationFrame(updateTimelineProgress);
+      }
+    },
+    { passive: true }
+  );
+  updateTimelineProgress();
+}
+
 // Add animation delays to contact cards
 const contactCards = document.querySelectorAll(".contact-card");
 contactCards.forEach((card, index) => {
@@ -186,11 +225,15 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 });
 
-// Performance: Lazy load images if any are added later
-if ("loading" in HTMLImageElement.prototype) {
-  const images = document.querySelectorAll('img[loading="lazy"]');
-  images.forEach((img) => {
-    img.src = img.dataset.src;
+// Contact form: prevent double submits while the request is in flight
+const contactForm = document.getElementById("contact-form");
+
+if (contactForm) {
+  contactForm.addEventListener("submit", () => {
+    const submitButton = contactForm.querySelector('button[type="submit"]');
+    if (!submitButton) return;
+    submitButton.disabled = true;
+    submitButton.textContent = "Sending…";
   });
 }
 
