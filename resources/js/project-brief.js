@@ -1,21 +1,12 @@
 // Project brief builder: turns a few picks into a ready-to-send contact message.
+import { t } from "./i18n";
+
 const brief = document.getElementById("project-brief");
 const contactForm = document.getElementById("contact-form");
 
 if (brief && contactForm) {
-  const featuresByType = {
-    laravel: ["Admin dashboard", "REST API", "Authentication & roles", "Payments", "Third-party integrations", "Performance optimisation"],
-    shopify: ["Custom theme", "Custom Shopify app", "Store migration", "Checkout & payments", "ERP / CRM integration", "Speed optimisation"],
-    ai: ["Chat assistant", "Content generation", "Document summarisation", "Smart search", "Workflow automation", "Add AI to an existing app"],
-    other: ["Code review / audit", "Bug fixing", "Ongoing maintenance", "Technical consulting"],
-  };
-
-  const typeLabels = {
-    laravel: "Laravel web application",
-    shopify: "Shopify store / app",
-    ai: "AI-powered feature",
-    other: "Engineering support",
-  };
+  const featuresByType = t("brief.features");
+  const typeLabels = t("brief.types");
 
   const featureContainer = brief.querySelector("[data-brief-features]");
   const generateButton = brief.querySelector("[data-brief-generate]");
@@ -47,18 +38,14 @@ if (brief && contactForm) {
     const timeline = brief.querySelector("[data-brief-timeline]").value;
     const idea = brief.querySelector("[data-brief-idea]").value.trim();
 
-    const lines = [
-      "Hi Tanvir,",
-      "",
-      `I'd like to discuss a ${typeLabels[type].toLowerCase()}.`,
-    ];
-    if (idea) lines.push("", "The idea:", idea);
-    if (features.length) lines.push("", "What it should include:", ...features.map((feature) => `- ${feature}`));
-    lines.push("", `Budget: ${budget}`, `Timeline: ${timeline}`, "", "Looking forward to hearing from you!");
+    const lines = [t("brief.greeting"), "", t("brief.intro", { type: typeLabels[type] })];
+    if (idea) lines.push("", t("brief.idea"), idea);
+    if (features.length) lines.push("", t("brief.include"), ...features.map((feature) => `- ${feature}`));
+    lines.push("", `${t("brief.budget")}: ${budget}`, `${t("brief.timeline")}: ${timeline}`, "", t("brief.closing"));
 
     const subject = contactForm.querySelector("#subject");
     const message = contactForm.querySelector("#message");
-    subject.value = `Project enquiry: ${typeLabels[type]}`;
+    subject.value = t("brief.subject", { type: typeLabels[type] });
     message.value = lines.join("\n");
 
     brief.open = false;

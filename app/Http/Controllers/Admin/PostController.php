@@ -3,10 +3,11 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Jobs\SendPostToSubscribers;
 use App\Models\Post;
+use App\Support\Slug;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
-use Illuminate\Support\Str;
 
 class PostController extends Controller
 {
@@ -34,11 +35,12 @@ class PostController extends Controller
     public function store(Request $request)
     {
         $data = $this->validatedData($request);
-        $data['slug'] = $this->generateSlug($data['title']);
+        $data['slug'] = Slug::unique(Post::class, $data['title']);
         $data['published_at'] = $data['is_published'] ? ($data['published_at'] ?? now()) : null;
         $data['featured_image'] = $this->storeFeaturedImage($request);
 
-        Post::create($data);
+        $post = Post::create($data);
+        $this->queueNewsletter($post);
 
         return redirect()->route('admin.posts.index')->with('status', 'Post created successfully.');
     }
@@ -65,7 +67,7 @@ class PostController extends Controller
     public function update(Request $request, Post $post)
     {
         $data = $this->validatedData($request);
-        $data['slug'] = $this->generateSlug($data['title'], $post->id);
+        $data['slug'] = Slug::unique(Post::class, $data['title'], $post->id);
         $data['published_at'] = $data['is_published'] ? ($data['published_at'] ?? ($post->published_at ?? now())) : null;
 
         $newImage = $this->storeFeaturedImage($request);
@@ -77,6 +79,7 @@ class PostController extends Controller
         }
 
         $post->update($data);
+        $this->queueNewsletter($post->fresh());
 
         return redirect()->route('admin.posts.index')->with('status', 'Post updated successfully.');
     }
@@ -108,6 +111,7 @@ class PostController extends Controller
             'featured_image' => ['nullable', 'image', 'max:5120'],
             'is_published' => ['nullable', 'boolean'],
             'is_featured' => ['nullable', 'boolean'],
+            'notify_subscribers' => ['nullable', 'boolean'],
             'published_at' => ['nullable', 'date'],
         ]);
 
@@ -123,6 +127,7 @@ class PostController extends Controller
             'tags' => $tags ?: null,
             'is_published' => $request->boolean('is_published'),
             'is_featured' => $request->boolean('is_featured'),
+            'notify_subscribers' => $request->boolean('notify_subscribers'),
         ] + $data;
     }
 
@@ -135,23 +140,11 @@ class PostController extends Controller
         return $request->file('featured_image')->store('posts', 'public');
     }
 
-    private function generateSlug(string $title, ?int $ignoreId = null): string
+    /** Email subscribers about the post once it is published and due; later posts go out via the scheduler. */
+    private function queueNewsletter(Post $post): void
     {
-        $base = Str::slug($title);
-        $baseSlug = $base !== '' ? $base : 'post';
-        $slug = $baseSlug;
-        $counter = 2;
-
-        while (
-            Post::query()
-                ->where('slug', $slug)
-                ->when($ignoreId, fn ($query) => $query->where('id', '!=', $ignoreId))
-                ->exists()
-        ) {
-            $slug = "{$baseSlug}-{$counter}";
-            $counter++;
+        if (SendPostToSubscribers::shouldSend($post)) {
+            SendPostToSubscribers::dispatch($post);
         }
-
-        return $slug;
     }
 }

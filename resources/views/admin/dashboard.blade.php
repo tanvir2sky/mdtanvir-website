@@ -5,7 +5,7 @@
 @section('content')
   <div class="mb-8">
     <h1 class="text-3xl font-black">Dashboard Overview</h1>
-    <p class="text-gray-600 dark:text-gray-400">Manage blog posts and contact messages from one place.</p>
+    <p class="text-gray-600 dark:text-gray-400">Manage your content, messages and newsletter from one place.</p>
   </div>
 
   <div class="grid sm:grid-cols-2 xl:grid-cols-5 gap-4 mb-8">
@@ -26,8 +26,9 @@
       <p class="text-3xl font-black mt-2">{{ $stats['messages_unread'] }}</p>
     </div>
     <div class="rounded-2xl border border-gray-200 dark:border-gray-800 bg-white dark:bg-gray-900 p-5">
-      <p class="text-xs uppercase tracking-wider text-gray-500">Admin Users</p>
-      <p class="text-3xl font-black mt-2">{{ $stats['admins_total'] }}</p>
+      <p class="text-xs uppercase tracking-wider text-gray-500">Subscribers</p>
+      <p class="text-3xl font-black mt-2">{{ $stats['subscribers_active'] }}</p>
+      <p class="mt-1 text-xs text-gray-500">{{ $stats['subscribers_pending'] }} awaiting confirmation</p>
     </div>
   </div>
 

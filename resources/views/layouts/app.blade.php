@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" class="scroll-smooth">
+<html lang="{{ str_replace('_', '-', app()->getLocale()) }}" class="scroll-smooth">
   @php
     $trackingSettings = \Illuminate\Support\Facades\Schema::hasTable('site_settings')
       ? \App\Models\SiteSetting::query()->first()
@@ -14,14 +14,14 @@
     <meta name="csrf-token" content="{{ csrf_token() }}" />
     <meta
       name="description"
-      content="@yield('meta_description', 'MD Tanvir Hossain - Software Engineer specializing in Laravel, PHP, Shopify, AI/LLM integration, and modern web development')"
+      content="@yield('meta_description', __('MD Tanvir Hossain - Software Engineer specializing in Laravel, PHP, Shopify, AI/LLM integration, and modern web development'))"
     />
     <meta
       name="keywords"
       content="@yield('meta_keywords', 'MD Tanvir Hossain, Software Engineer, Laravel, PHP, Shopify, AI, LLM integration, Web Developer')"
     />
     <meta name="author" content="MD Tanvir Hossain" />
-    <title>@yield('title', 'MD Tanvir Hossain | Software Engineer')</title>
+    <title>@yield('title', 'MD Tanvir Hossain | '.__('Software Engineer'))</title>
 
     <link rel="icon" href="{{ asset('img/favicon/favicon.ico') }}" sizes="any" />
     <link rel="icon" href="{{ asset('img/favicon/favicon.svg') }}" type="image/svg+xml" />
@@ -64,6 +64,7 @@
       </script>
     @endif
 
+    @include('partials.js-i18n')
     @vite(["resources/css/app.css", "resources/js/app.js"])
   </head>
   <body class="bg-white dark:bg-gray-950 text-gray-900 dark:text-gray-100 transition-colors duration-300 antialiased">
@@ -76,5 +77,7 @@
     @endif
 
     @yield('content')
+
+    @include('partials.command-palette')
   </body>
 </html>

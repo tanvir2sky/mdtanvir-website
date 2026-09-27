@@ -1,4 +1,6 @@
 // Blog article page: reading progress bar, table-of-contents highlighting, copy link.
+import { t } from "./i18n";
+
 const article = document.querySelector(".article-content");
 
 if (article) {
@@ -63,13 +65,13 @@ document.querySelectorAll("[data-copy-link]").forEach((button) => {
     const label = button.querySelector("[data-copy-label]");
     try {
       await navigator.clipboard.writeText(button.dataset.copyLink);
-      if (label) label.textContent = "Copied!";
+      if (label) label.textContent = t("common.copied");
     } catch {
-      if (label) label.textContent = "Press Ctrl+C";
-      window.prompt("Copy this link:", button.dataset.copyLink);
+      if (label) label.textContent = t("common.pressCtrlC");
+      window.prompt(t("common.copyThisLink"), button.dataset.copyLink);
     }
     setTimeout(() => {
-      if (label) label.textContent = "Copy link";
+      if (label) label.textContent = t("common.copyLink");
     }, 2000);
   });
 });

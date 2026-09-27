@@ -16,7 +16,8 @@ class PostSeeder extends Seeder
         foreach ($this->posts() as $post) {
             Post::query()->firstOrCreate(
                 ['slug' => $post['slug']],
-                $post + ['is_published' => true]
+                // Starter posts are never emailed to subscribers.
+                $post + ['is_published' => true, 'notify_subscribers' => false]
             );
         }
     }

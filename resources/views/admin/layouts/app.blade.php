@@ -32,6 +32,20 @@
           <a href="{{ route('admin.posts.index') }}" class="block px-4 py-3 rounded-xl {{ str_starts_with((string) $route, 'admin.posts.') ? 'bg-primary-600 text-white' : 'hover:bg-gray-100 dark:hover:bg-gray-800' }}">
             <i class="fas fa-newspaper mr-2"></i> Blog Posts
           </a>
+          <p class="px-4 pt-4 pb-1 text-xs font-semibold uppercase tracking-wider text-gray-500">Home page</p>
+          @foreach ([
+            ['admin.experiences.', 'admin.experiences.index', 'fa-briefcase', 'Experience'],
+            ['admin.projects.', 'admin.projects.index', 'fa-diagram-project', 'Projects'],
+            ['admin.skills.', 'admin.skills.index', 'fa-layer-group', 'Skills'],
+          ] as [$prefix, $target, $icon, $label])
+            <a href="{{ route($target) }}" class="block px-4 py-3 rounded-xl {{ str_starts_with((string) $route, $prefix) ? 'bg-primary-600 text-white' : 'hover:bg-gray-100 dark:hover:bg-gray-800' }}">
+              <i class="fas {{ $icon }} mr-2"></i> {{ $label }}
+            </a>
+          @endforeach
+          <p class="px-4 pt-4 pb-1 text-xs font-semibold uppercase tracking-wider text-gray-500">Audience</p>
+          <a href="{{ route('admin.subscribers.index') }}" class="block px-4 py-3 rounded-xl {{ str_starts_with((string) $route, 'admin.subscribers.') ? 'bg-primary-600 text-white' : 'hover:bg-gray-100 dark:hover:bg-gray-800' }}">
+            <i class="fas fa-users mr-2"></i> Subscribers
+          </a>
           <a href="{{ route('admin.contacts.index') }}" class="block px-4 py-3 rounded-xl {{ str_starts_with((string) $route, 'admin.contacts.') ? 'bg-primary-600 text-white' : 'hover:bg-gray-100 dark:hover:bg-gray-800' }}">
             <i class="fas fa-envelope-open-text mr-2"></i> Contacts
           </a>

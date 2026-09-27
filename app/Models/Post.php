@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Support\HtmlToc;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Storage;
@@ -21,6 +22,7 @@ class Post extends Model
         'featured_image',
         'is_published',
         'is_featured',
+        'notify_subscribers',
         'published_at',
     ];
 
@@ -33,7 +35,9 @@ class Post extends Model
             'tags' => 'array',
             'is_published' => 'boolean',
             'is_featured' => 'boolean',
+            'notify_subscribers' => 'boolean',
             'published_at' => 'datetime',
+            'newsletter_sent_at' => 'datetime',
         ];
     }
 
@@ -90,42 +94,6 @@ class Post extends Model
      */
     public function contentWithToc(): array
     {
-        if ($this->renderedContent !== null) {
-            return $this->renderedContent;
-        }
-
-        $toc = [];
-        $used = [];
-
-        $html = preg_replace_callback(
-            '/<h([23])(\s[^>]*)?>(.*?)<\/h\1>/is',
-            function (array $match) use (&$toc, &$used) {
-                [$full, $level, $attributes, $inner] = $match + [2 => '', 3 => ''];
-                $text = trim(html_entity_decode(strip_tags($inner), ENT_QUOTES | ENT_HTML5));
-
-                if ($text === '') {
-                    return $full;
-                }
-
-                if (preg_match('/\sid=["\']([^"\']+)["\']/i', $attributes, $existing)) {
-                    $id = $existing[1];
-                } else {
-                    $base = Str::slug($text) ?: 'section';
-                    $id = $base;
-                    for ($i = 2; isset($used[$id]); $i++) {
-                        $id = "{$base}-{$i}";
-                    }
-                    $attributes .= ' id="'.e($id).'"';
-                }
-
-                $used[$id] = true;
-                $toc[] = ['id' => $id, 'text' => $text, 'level' => (int) $level];
-
-                return "<h{$level}{$attributes}>{$inner}</h{$level}>";
-            },
-            (string) $this->content
-        );
-
-        return $this->renderedContent = ['html' => $html ?? (string) $this->content, 'toc' => $toc];
+        return $this->renderedContent ??= HtmlToc::build((string) $this->content);
     }
 }

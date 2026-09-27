@@ -2,24 +2,58 @@
 
 use App\Http\Controllers\Admin\ContactMessageController;
 use App\Http\Controllers\Admin\DashboardController;
+use App\Http\Controllers\Admin\ExperienceController;
 use App\Http\Controllers\Admin\PostController;
+use App\Http\Controllers\Admin\ProjectController as AdminProjectController;
 use App\Http\Controllers\Admin\SettingController;
+use App\Http\Controllers\Admin\SkillGroupController;
+use App\Http\Controllers\Admin\SubscriberController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\BlogController;
 use App\Http\Controllers\ContactController;
 use App\Http\Controllers\FeedController;
 use App\Http\Controllers\HomeController;
+use App\Http\Controllers\NewsletterController;
+use App\Http\Controllers\ProjectController;
+use App\Http\Controllers\SearchController;
+use App\Support\Locale;
 use Illuminate\Support\Facades\Route;
 
-Route::get('/', HomeController::class)->name('home');
+/*
+| Public pages, registered once per language: English at "/", German at "/de".
+| Use lroute('blog.index') in views to link to the current language.
+*/
+foreach (Locale::PREFIXES as $locale => $prefix) {
+    Route::prefix($prefix)
+        ->name($locale === Locale::default() ? '' : "{$locale}.")
+        ->middleware("locale:{$locale}")
+        ->group(function () {
+            Route::get('/', HomeController::class)->name('home');
+            Route::get('/blog', [BlogController::class, 'index'])->name('blog.index');
+            Route::get('/blog/{slug}', [BlogController::class, 'show'])->name('blog.show');
+            Route::get('/projects/{slug}', [ProjectController::class, 'show'])->name('projects.show');
+            Route::get('/search.json', SearchController::class)->name('search');
+            Route::get('/newsletter/confirmed', [NewsletterController::class, 'confirmed'])->name('newsletter.confirmed');
+            Route::get('/newsletter/unsubscribed', [NewsletterController::class, 'unsubscribed'])->name('newsletter.unsubscribed');
+        });
+}
 
-Route::get('/blog', [BlogController::class, 'index'])->name('blog.index');
-Route::get('/blog/{slug}', [BlogController::class, 'show'])->name('blog.show');
 Route::get('/feed', [FeedController::class, 'rss'])->name('feed');
 Route::get('/sitemap.xml', [FeedController::class, 'sitemap'])->name('sitemap');
+
 Route::post('/contact', [ContactController::class, 'store'])
     ->middleware('throttle:5,1')
     ->name('contact.store');
+
+Route::post('/newsletter', [NewsletterController::class, 'store'])
+    ->middleware('throttle:5,1')
+    ->name('newsletter.store');
+Route::get('/newsletter/confirm/{subscriber}', [NewsletterController::class, 'confirm'])
+    ->middleware('signed')
+    ->name('newsletter.confirm');
+Route::match(['get', 'post'], '/newsletter/unsubscribe/{token}', [NewsletterController::class, 'unsubscribe'])
+    ->withoutMiddleware(\Illuminate\Foundation\Http\Middleware\ValidateCsrfToken::class)
+    ->name('newsletter.unsubscribe');
 
 Route::middleware('guest')->group(function () {
     Route::get('/login', [AuthController::class, 'create'])->name('login');
@@ -36,6 +70,24 @@ Route::prefix('admin')
     ->group(function () {
         Route::get('/', DashboardController::class)->name('dashboard');
         Route::resource('posts', PostController::class);
+
+        Route::resource('experiences', ExperienceController::class)->except('show');
+        Route::patch('experiences/{experience}/move/{direction}', [ExperienceController::class, 'move'])
+            ->whereIn('direction', ['up', 'down'])->name('experiences.move');
+
+        Route::resource('projects', AdminProjectController::class)->except('show');
+        Route::patch('projects/{project}/move/{direction}', [AdminProjectController::class, 'move'])
+            ->whereIn('direction', ['up', 'down'])->name('projects.move');
+
+        Route::resource('skills', SkillGroupController::class)->except('show')
+            ->parameters(['skills' => 'skillGroup']);
+        Route::patch('skills/{skillGroup}/move/{direction}', [SkillGroupController::class, 'move'])
+            ->whereIn('direction', ['up', 'down'])->name('skills.move');
+
+        Route::get('subscribers', [SubscriberController::class, 'index'])->name('subscribers.index');
+        Route::get('subscribers/export', [SubscriberController::class, 'export'])->name('subscribers.export');
+        Route::delete('subscribers/{subscriber}', [SubscriberController::class, 'destroy'])->name('subscribers.destroy');
+
         Route::get('contacts', [ContactMessageController::class, 'index'])->name('contacts.index');
         Route::get('contacts/{contact}', [ContactMessageController::class, 'show'])->name('contacts.show');
         Route::get('settings', [SettingController::class, 'edit'])->name('settings.edit');

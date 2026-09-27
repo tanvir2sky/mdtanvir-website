@@ -1,8 +1,10 @@
 import "./bootstrap";
+import { t } from "./i18n";
 import "particles.js";
 import "./terminal";
 import "./project-brief";
 import "./blog";
+import "./command-palette";
 
 // Theme Toggle
 const themeToggle = document.getElementById("theme-toggle");
@@ -234,7 +236,7 @@ if (contactForm) {
     const submitButton = contactForm.querySelector('button[type="submit"]');
     if (!submitButton) return;
     submitButton.disabled = true;
-    submitButton.textContent = "Sending…";
+    submitButton.textContent = t("common.sending");
   });
 }
 

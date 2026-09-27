@@ -17,7 +17,7 @@
     <div class="absolute -right-10 -bottom-10 h-48 w-48 rounded-full bg-white/20 blur-3xl"></div>
     <i class="{{ $style['icon'] }} absolute right-6 bottom-4 text-white/25 transition-transform duration-700 group-hover:scale-110 group-hover:-rotate-6 {{ $size === 'lg' ? 'text-[9rem]' : 'text-7xl' }}"></i>
     @if ($size === 'lg')
-      <span class="absolute left-6 top-6 font-mono text-xs uppercase tracking-[0.3em] text-white/80">{{ $post->category ?: 'Article' }}</span>
+      <span class="absolute left-6 top-6 font-mono text-xs uppercase tracking-[0.3em] text-white/80">{{ $post->category ?: __('Article') }}</span>
     @endif
   </div>
 @endif

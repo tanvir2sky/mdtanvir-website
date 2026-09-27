@@ -3,6 +3,7 @@
 namespace Tests\Feature;
 
 use App\Models\Post;
+use Database\Seeders\PortfolioSeeder;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\TestCase;
 
@@ -24,11 +25,12 @@ class HomeAndFeedTest extends TestCase
 
     public function test_home_page_renders_ai_content_terminal_and_latest_posts(): void
     {
+        $this->seed(PortfolioSeeder::class);
         $this->publishedPost();
 
         $this->get(route('home'))
             ->assertOk()
-            ->assertSee('AI & LLM', false)
+            ->assertSee('AI & LLM')
             ->assertSee('hero-terminal', false)
             ->assertSee('project-brief', false)
             ->assertSee('Previously')

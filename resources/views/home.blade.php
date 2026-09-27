@@ -1,127 +1,15 @@
 @extends('layouts.app')
 
-@section('meta_url', route('home'))
+@section('meta_url', lroute('home'))
 
 @section('content')
 @php
   $turnstileSiteKey = config('services.turnstile.site_key');
+  $currentJob = $experiences->firstWhere('is_current', true);
 @endphp
-<nav
-      class="fixed top-0 w-full z-50 bg-white/80 dark:bg-gray-950/80 backdrop-blur-xl border-b border-gray-200/70 dark:border-gray-800/70 transition-colors duration-300"
-    >
-      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div class="flex justify-between items-center h-16">
-          <a
-            href="#home"
-            class="text-lg font-extrabold tracking-tight text-primary-700 dark:text-primary-300"
-          >
-            MD Tanvir
-          </a>
-          <div class="hidden md:flex items-center space-x-7">
-            <a
-              href="#home"
-              class="nav-link text-sm font-medium text-gray-700 dark:text-gray-300 hover:text-primary-600 dark:hover:text-primary-400 transition-colors"
-              >Home</a
-            >
-            <a
-              href="#about"
-              class="nav-link text-sm font-medium text-gray-700 dark:text-gray-300 hover:text-primary-600 dark:hover:text-primary-400 transition-colors"
-              >About</a
-            >
-            <a
-              href="#skills"
-              class="nav-link text-sm font-medium text-gray-700 dark:text-gray-300 hover:text-primary-600 dark:hover:text-primary-400 transition-colors"
-              >Skills</a
-            >
-            <a
-              href="#experience"
-              class="nav-link text-sm font-medium text-gray-700 dark:text-gray-300 hover:text-primary-600 dark:hover:text-primary-400 transition-colors"
-              >Experience</a
-            >
-            <a
-              href="#projects"
-              class="nav-link text-sm font-medium text-gray-700 dark:text-gray-300 hover:text-primary-600 dark:hover:text-primary-400 transition-colors"
-              >Projects</a
-            >
-            <a
-              href="{{ route('blog.index') }}"
-              class="text-sm font-medium text-gray-700 dark:text-gray-300 hover:text-primary-600 dark:hover:text-primary-400 transition-colors"
-              >Blog</a
-            >
-            <a
-              href="#contact"
-              class="nav-link text-sm font-medium text-gray-700 dark:text-gray-300 hover:text-primary-600 dark:hover:text-primary-400 transition-colors"
-              >Contact</a
-            >
-          </div>
+    @include('partials.site-header')
 
-          <div class="flex items-center gap-2">
-            <button
-              id="theme-toggle"
-              aria-label="Toggle theme"
-              class="p-2 rounded-lg bg-gray-200 dark:bg-gray-800 hover:bg-gray-300 dark:hover:bg-gray-700 transition-colors"
-            >
-              <i class="fas fa-moon dark:hidden"></i>
-              <i class="fas fa-sun hidden dark:inline"></i>
-            </button>
-            <button
-              id="mobile-menu-toggle"
-              aria-label="Toggle mobile menu"
-              class="md:hidden p-2 rounded-lg bg-gray-200 dark:bg-gray-800 hover:bg-gray-300 dark:hover:bg-gray-700 transition-colors"
-            >
-              <i class="fas fa-bars"></i>
-            </button>
-          </div>
-        </div>
-      </div>
-
-      <div
-        id="mobile-menu"
-        class="hidden md:hidden border-t border-gray-200 dark:border-gray-800 bg-white/95 dark:bg-gray-950/95"
-      >
-        <div class="px-4 py-4 space-y-3">
-          <a
-            href="#home"
-            class="block nav-link text-gray-700 dark:text-gray-300 hover:text-primary-600 dark:hover:text-primary-400"
-            >Home</a
-          >
-          <a
-            href="#about"
-            class="block nav-link text-gray-700 dark:text-gray-300 hover:text-primary-600 dark:hover:text-primary-400"
-            >About</a
-          >
-          <a
-            href="#skills"
-            class="block nav-link text-gray-700 dark:text-gray-300 hover:text-primary-600 dark:hover:text-primary-400"
-            >Skills</a
-          >
-          <a
-            href="#experience"
-            class="block nav-link text-gray-700 dark:text-gray-300 hover:text-primary-600 dark:hover:text-primary-400"
-            >Experience</a
-          >
-          <a
-            href="#projects"
-            class="block nav-link text-gray-700 dark:text-gray-300 hover:text-primary-600 dark:hover:text-primary-400"
-            >Projects</a
-          >
-          <a
-            href="{{ route('blog.index') }}"
-            class="block text-gray-700 dark:text-gray-300 hover:text-primary-600 dark:hover:text-primary-400"
-            >Blog</a
-          >
-          <a
-            href="#contact"
-            class="block nav-link text-gray-700 dark:text-gray-300 hover:text-primary-600 dark:hover:text-primary-400"
-            >Contact</a
-          >
-        </div>
-      </div>
-    </nav>
-
-    <div id="particles-js" class="fixed inset-0 z-0 pointer-events-none"></div>
-
-    <main class="relative z-10">
+    <main id="main-content" class="relative z-10">
       <section
         id="home"
         class="min-h-screen flex items-center px-4 sm:px-6 lg:px-8 pt-20"
@@ -133,7 +21,7 @@
                 class="inline-flex items-center gap-2 px-4 py-1.5 mb-5 rounded-full text-sm font-medium bg-primary-100/80 text-primary-800 dark:bg-primary-900/40 dark:text-primary-200 border border-primary-200 dark:border-primary-800 animate-pulse-slow"
               >
                 <span class="w-2 h-2 rounded-full bg-primary-500"></span>
-                Open to impactful engineering work
+                {{ __('Open to impactful engineering work') }}
               </p>
               <h1
                 class="text-4xl sm:text-5xl lg:text-6xl xl:text-7xl font-black tracking-tight mb-5 bg-gradient-to-r from-primary-700 via-primary-500 to-cyan-400 bg-clip-text text-transparent animate-slide-up"
@@ -144,23 +32,23 @@
                 class="text-2xl md:text-3xl font-bold text-gray-800 dark:text-gray-200 mb-5 animate-slide-up"
                 style="animation-delay: 0.1s"
               >
-                Software Engineer
-                <span class="text-gray-400 dark:text-gray-500 font-medium">at</span>
-                <a
-                  href="https://altruan.de"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  class="bg-gradient-to-r from-cyan-500 to-primary-600 dark:from-cyan-300 dark:to-primary-400 bg-clip-text text-transparent hover:opacity-80 transition-opacity"
-                  >Altruan GmbH</a
-                >
+                {{ $currentJob?->t('role') ?? __('Software Engineer') }}
+                @if ($currentJob)
+                  <span class="text-gray-400 dark:text-gray-500 font-medium">{{ __('at') }}</span>
+                  <a
+                    href="{{ $currentJob->url }}"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    class="bg-gradient-to-r from-cyan-500 to-primary-600 dark:from-cyan-300 dark:to-primary-400 bg-clip-text text-transparent hover:opacity-80 transition-opacity"
+                    >{{ $currentJob->company }}</a
+                  >
+                @endif
               </h2>
               <p
                 class="text-lg md:text-xl leading-relaxed text-gray-600 dark:text-gray-300 max-w-2xl mb-8 animate-slide-up"
                 style="animation-delay: 0.2s"
               >
-                Crafting robust web solutions with Laravel, PHP, Shopify, and
-                AI-powered features. Passionate about clean code, scalable
-                architecture, and delivering exceptional digital experiences.
+                {{ __('Crafting robust web solutions with Laravel, PHP, Shopify, and AI-powered features. Passionate about clean code, scalable architecture, and delivering exceptional digital experiences.') }}
               </p>
 
               <div
@@ -171,10 +59,10 @@
                   href="#contact"
                   class="px-6 sm:px-8 py-3 bg-primary-600 hover:bg-primary-700 text-white rounded-xl font-semibold shadow-soft hover:shadow-xl transition-all transform hover:-translate-y-0.5"
                 >
-                  Get In Touch
+                  {{ __('Get In Touch') }}
                 </a>
                 <a
-                  href="https://www.linkedin.com/in/tanvir-cs"
+                  href="{{ config('portfolio.linkedin') }}"
                   target="_blank"
                   rel="noopener noreferrer"
                   class="px-6 sm:px-8 py-3 rounded-xl font-semibold border border-gray-300 dark:border-gray-700 bg-white/80 dark:bg-gray-900/80 hover:bg-gray-100 dark:hover:bg-gray-800 transition-all"
@@ -182,7 +70,7 @@
                   <i class="fab fa-linkedin mr-2 text-primary-600 dark:text-primary-400"></i>LinkedIn
                 </a>
                 <a
-                  href="https://github.com/tanvir-cs"
+                  href="{{ config('portfolio.github') }}"
                   target="_blank"
                   rel="noopener noreferrer"
                   class="px-6 sm:px-8 py-3 rounded-xl font-semibold border border-gray-300 dark:border-gray-700 bg-white/80 dark:bg-gray-900/80 hover:bg-gray-100 dark:hover:bg-gray-800 transition-all"
@@ -195,42 +83,22 @@
                     download
                     class="px-6 sm:px-8 py-3 rounded-xl font-semibold border border-gray-300 dark:border-gray-700 bg-white/80 dark:bg-gray-900/80 hover:bg-gray-100 dark:hover:bg-gray-800 transition-all"
                   >
-                    <i class="fas fa-file-arrow-down mr-2 text-primary-600 dark:text-primary-400"></i>Download CV
+                    <i class="fas fa-file-arrow-down mr-2 text-primary-600 dark:text-primary-400"></i>{{ __('Download CV') }}
                   </a>
                 @endif
               </div>
 
               <div class="mt-10 grid sm:grid-cols-3 gap-4 max-w-2xl">
-                <div
-                  class="bg-white/80 dark:bg-gray-900/70 border border-gray-200 dark:border-gray-800 rounded-xl p-4"
-                >
-                  <p class="text-2xl font-extrabold text-primary-700 dark:text-primary-300">
-                    8+
-                  </p>
-                  <p class="text-sm text-gray-600 dark:text-gray-400">
-                    Years in web development
-                  </p>
-                </div>
-                <div
-                  class="bg-white/80 dark:bg-gray-900/70 border border-gray-200 dark:border-gray-800 rounded-xl p-4"
-                >
-                  <p class="text-2xl font-extrabold text-primary-700 dark:text-primary-300">
-                    3
-                  </p>
-                  <p class="text-sm text-gray-600 dark:text-gray-400">
-                    Core specialization areas
-                  </p>
-                </div>
-                <div
-                  class="bg-white/80 dark:bg-gray-900/70 border border-gray-200 dark:border-gray-800 rounded-xl p-4"
-                >
-                  <p class="text-2xl font-extrabold text-primary-700 dark:text-primary-300">
-                    Global
-                  </p>
-                  <p class="text-sm text-gray-600 dark:text-gray-400">
-                    Cross-functional collaboration
-                  </p>
-                </div>
+                @foreach ([
+                  ['8+', __('Years in web development')],
+                  ['3', __('Core specialization areas')],
+                  [__('Global'), __('Cross-functional collaboration')],
+                ] as [$value, $label])
+                  <div class="bg-white/80 dark:bg-gray-900/70 border border-gray-200 dark:border-gray-800 rounded-xl p-4">
+                    <p class="text-2xl font-extrabold text-primary-700 dark:text-primary-300">{{ $value }}</p>
+                    <p class="text-sm text-gray-600 dark:text-gray-400">{{ $label }}</p>
+                  </div>
+                @endforeach
               </div>
             </div>
 
@@ -252,10 +120,10 @@
                   />
                   <div class="mt-6 text-center">
                     <p class="text-xl font-bold text-gray-900 dark:text-white">
-                      Laravel | PHP | Shopify | AI
+                      Laravel | PHP | Shopify | {{ __('AI') }}
                     </p>
                     <p class="mt-2 text-sm text-gray-600 dark:text-gray-400">
-                      Building secure, scalable, and high-performance products.
+                      {{ __('Building secure, scalable, and high-performance products.') }}
                     </p>
                   </div>
                 </div>
@@ -273,163 +141,24 @@
         <div class="max-w-6xl mx-auto">
           <div class="grid lg:grid-cols-12 gap-10">
             <div class="lg:col-span-4">
-              <p
-                class="text-sm font-semibold uppercase tracking-wider text-primary-700 dark:text-primary-300 mb-3"
-              >
-                About Me
+              <p class="text-sm font-semibold uppercase tracking-wider text-primary-700 dark:text-primary-300 mb-3">
+                {{ __('About Me') }}
               </p>
               <h2 class="text-4xl md:text-5xl font-black text-gray-900 dark:text-white">
-                Engineer focused on quality and scale
+                {{ __('Engineer focused on quality and scale') }}
               </h2>
             </div>
-            <div class="lg:col-span-8 space-y-5">
-              <p class="text-lg text-gray-700 dark:text-gray-300 leading-relaxed">
-                I'm a passionate Software Engineer with expertise in building
-                scalable web applications using modern technologies. My journey
-                in software development has been driven by a commitment to
-                writing clean, maintainable code and solving complex problems
-                with elegant solutions.
-              </p>
-              <p class="text-lg text-gray-700 dark:text-gray-300 leading-relaxed">
-                Specializing in
-                <strong class="text-primary-600 dark:text-primary-400"
-                  >Laravel</strong
-                >
-                and
-                <strong class="text-primary-600 dark:text-primary-400">PHP</strong>,
-                I've developed robust backend systems and RESTful APIs that
-                power high-performance applications. My experience with
-                <strong class="text-primary-600 dark:text-primary-400"
-                  >Shopify</strong
-                >
-                has enabled me to create seamless e-commerce solutions and
-                custom storefronts for businesses of all sizes.
-              </p>
-              <p class="text-lg text-gray-700 dark:text-gray-300 leading-relaxed">
-                More recently, I've been bringing
-                <strong class="text-primary-600 dark:text-primary-400">AI</strong>
-                into production: integrating large language models into Laravel
-                applications to power real product features, and working with
-                AI coding assistants and agentic workflows every day to ship
-                faster without compromising on quality.
-              </p>
-              <p class="text-lg text-gray-700 dark:text-gray-300 leading-relaxed">
-                Beyond coding, I'm dedicated to continuous learning, staying
-                updated with industry best practices, and contributing to the
-                developer community. I believe in building software that not
-                only meets requirements but exceeds expectations in terms of
-                performance, security, and user experience.
-              </p>
+            <div class="lg:col-span-8 space-y-5 text-lg text-gray-700 dark:text-gray-300 leading-relaxed [&_strong]:text-primary-600 dark:[&_strong]:text-primary-400">
+              <p>{{ __("I'm a passionate Software Engineer with expertise in building scalable web applications using modern technologies. My journey in software development has been driven by a commitment to writing clean, maintainable code and solving complex problems with elegant solutions.") }}</p>
+              <p>{!! __("Specializing in <strong>Laravel</strong> and <strong>PHP</strong>, I've developed robust backend systems and RESTful APIs that power high-performance applications. My experience with <strong>Shopify</strong> has enabled me to create seamless e-commerce solutions and custom storefronts for businesses of all sizes.") !!}</p>
+              <p>{!! __("More recently, I've been bringing <strong>AI</strong> into production: integrating large language models into Laravel applications to power real product features, and working with AI coding assistants and agentic workflows every day to ship faster without compromising on quality.") !!}</p>
+              <p>{{ __("Beyond coding, I'm dedicated to continuous learning, staying updated with industry best practices, and contributing to the developer community. I believe in building software that not only meets requirements but exceeds expectations in terms of performance, security, and user experience.") }}</p>
             </div>
           </div>
         </div>
       </section>
 
-      <section id="skills" class="py-20 sm:py-24 px-4 sm:px-6 lg:px-8">
-        <div class="max-w-7xl mx-auto">
-          <div class="text-center mb-12">
-            <p
-              class="text-sm font-semibold uppercase tracking-wider text-primary-700 dark:text-primary-300 mb-3"
-            >
-              Skills & Technologies
-            </p>
-            <h2 class="text-4xl md:text-5xl font-black text-gray-900 dark:text-white">
-              Technical strengths
-            </h2>
-          </div>
-
-          <div class="grid md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 gap-6">
-            <article
-              class="skill-card bg-white/80 dark:bg-gray-900/80 p-6 rounded-2xl shadow-lg hover:shadow-2xl transition-all transform hover:-translate-y-1 border border-gray-200 dark:border-gray-800"
-            >
-              <div class="text-3xl mb-4 text-primary-600 dark:text-primary-400">
-                <i class="fas fa-server"></i>
-              </div>
-              <h3 class="text-xl font-bold mb-4 text-gray-900 dark:text-white">
-                Backend
-              </h3>
-              <ul class="space-y-2 text-gray-700 dark:text-gray-300">
-                <li class="flex items-center"><i class="fas fa-check-circle text-primary-600 dark:text-primary-400 mr-2"></i>Laravel</li>
-                <li class="flex items-center"><i class="fas fa-check-circle text-primary-600 dark:text-primary-400 mr-2"></i>PHP</li>
-                <li class="flex items-center"><i class="fas fa-check-circle text-primary-600 dark:text-primary-400 mr-2"></i>RESTful APIs</li>
-                <li class="flex items-center"><i class="fas fa-check-circle text-primary-600 dark:text-primary-400 mr-2"></i>MySQL</li>
-                <li class="flex items-center"><i class="fas fa-check-circle text-primary-600 dark:text-primary-400 mr-2"></i>PostgreSQL</li>
-              </ul>
-            </article>
-
-            <article
-              class="skill-card bg-white/80 dark:bg-gray-900/80 p-6 rounded-2xl shadow-lg hover:shadow-2xl transition-all transform hover:-translate-y-1 border border-gray-200 dark:border-gray-800"
-            >
-              <div class="text-3xl mb-4 text-primary-600 dark:text-primary-400">
-                <i class="fas fa-code"></i>
-              </div>
-              <h3 class="text-xl font-bold mb-4 text-gray-900 dark:text-white">
-                Frontend
-              </h3>
-              <ul class="space-y-2 text-gray-700 dark:text-gray-300">
-                <li class="flex items-center"><i class="fas fa-check-circle text-primary-600 dark:text-primary-400 mr-2"></i>HTML5</li>
-                <li class="flex items-center"><i class="fas fa-check-circle text-primary-600 dark:text-primary-400 mr-2"></i>CSS3</li>
-                <li class="flex items-center"><i class="fas fa-check-circle text-primary-600 dark:text-primary-400 mr-2"></i>JavaScript</li>
-                <li class="flex items-center"><i class="fas fa-check-circle text-primary-600 dark:text-primary-400 mr-2"></i>TailwindCSS</li>
-                <li class="flex items-center"><i class="fas fa-check-circle text-primary-600 dark:text-primary-400 mr-2"></i>Responsive Design</li>
-              </ul>
-            </article>
-
-            <article
-              class="skill-card bg-white/80 dark:bg-gray-900/80 p-6 rounded-2xl shadow-lg hover:shadow-2xl transition-all transform hover:-translate-y-1 border border-gray-200 dark:border-gray-800"
-            >
-              <div class="text-3xl mb-4 text-primary-600 dark:text-primary-400">
-                <i class="fas fa-shopping-cart"></i>
-              </div>
-              <h3 class="text-xl font-bold mb-4 text-gray-900 dark:text-white">
-                E-commerce
-              </h3>
-              <ul class="space-y-2 text-gray-700 dark:text-gray-300">
-                <li class="flex items-center"><i class="fas fa-check-circle text-primary-600 dark:text-primary-400 mr-2"></i>Shopify</li>
-                <li class="flex items-center"><i class="fas fa-check-circle text-primary-600 dark:text-primary-400 mr-2"></i>Shopify Apps</li>
-                <li class="flex items-center"><i class="fas fa-check-circle text-primary-600 dark:text-primary-400 mr-2"></i>Liquid Templates</li>
-                <li class="flex items-center"><i class="fas fa-check-circle text-primary-600 dark:text-primary-400 mr-2"></i>Store Customization</li>
-              </ul>
-            </article>
-
-            <article
-              class="skill-card bg-white/80 dark:bg-gray-900/80 p-6 rounded-2xl shadow-lg hover:shadow-2xl transition-all transform hover:-translate-y-1 border border-gray-200 dark:border-gray-800"
-            >
-              <div class="text-3xl mb-4 text-primary-600 dark:text-primary-400">
-                <i class="fas fa-robot"></i>
-              </div>
-              <h3 class="text-xl font-bold mb-4 text-gray-900 dark:text-white">
-                AI & LLM
-              </h3>
-              <ul class="space-y-2 text-gray-700 dark:text-gray-300">
-                <li class="flex items-center"><i class="fas fa-check-circle text-primary-600 dark:text-primary-400 mr-2"></i>LLM API Integration</li>
-                <li class="flex items-center"><i class="fas fa-check-circle text-primary-600 dark:text-primary-400 mr-2"></i>Prompt Engineering</li>
-                <li class="flex items-center"><i class="fas fa-check-circle text-primary-600 dark:text-primary-400 mr-2"></i>AI Product Features</li>
-                <li class="flex items-center"><i class="fas fa-check-circle text-primary-600 dark:text-primary-400 mr-2"></i>Claude Code & Copilot</li>
-                <li class="flex items-center"><i class="fas fa-check-circle text-primary-600 dark:text-primary-400 mr-2"></i>Agentic Workflows</li>
-              </ul>
-            </article>
-
-            <article
-              class="skill-card bg-white/80 dark:bg-gray-900/80 p-6 rounded-2xl shadow-lg hover:shadow-2xl transition-all transform hover:-translate-y-1 border border-gray-200 dark:border-gray-800"
-            >
-              <div class="text-3xl mb-4 text-primary-600 dark:text-primary-400">
-                <i class="fas fa-tools"></i>
-              </div>
-              <h3 class="text-xl font-bold mb-4 text-gray-900 dark:text-white">
-                Tools & DevOps
-              </h3>
-              <ul class="space-y-2 text-gray-700 dark:text-gray-300">
-                <li class="flex items-center"><i class="fas fa-check-circle text-primary-600 dark:text-primary-400 mr-2"></i>Git & GitHub</li>
-                <li class="flex items-center"><i class="fas fa-check-circle text-primary-600 dark:text-primary-400 mr-2"></i>Docker</li>
-                <li class="flex items-center"><i class="fas fa-check-circle text-primary-600 dark:text-primary-400 mr-2"></i>CI/CD</li>
-                <li class="flex items-center"><i class="fas fa-check-circle text-primary-600 dark:text-primary-400 mr-2"></i>Linux</li>
-                <li class="flex items-center"><i class="fas fa-check-circle text-primary-600 dark:text-primary-400 mr-2"></i>AWS</li>
-              </ul>
-            </article>
-          </div>
-        </div>
-      </section>
+      @include('partials.skills')
 
       @include('partials.experience')
 
@@ -441,14 +170,14 @@
             <div class="flex flex-wrap items-end justify-between gap-4 mb-10">
               <div>
                 <p class="text-sm font-semibold uppercase tracking-wider text-primary-700 dark:text-primary-300 mb-3">
-                  From the Blog
+                  {{ __('From the Blog') }}
                 </p>
                 <h2 class="text-4xl md:text-5xl font-black text-gray-900 dark:text-white">
-                  Latest writing
+                  {{ __('Latest writing') }}
                 </h2>
               </div>
-              <a href="{{ route('blog.index') }}" class="text-sm font-semibold text-primary-600 dark:text-primary-400 hover:underline">
-                View all posts <i class="fas fa-arrow-right ml-1"></i>
+              <a href="{{ lroute('blog.index') }}" class="text-sm font-semibold text-primary-600 dark:text-primary-400 hover:underline">
+                {{ __('View all posts') }} <i class="fas fa-arrow-right ml-1"></i>
               </a>
             </div>
 
@@ -470,17 +199,14 @@
             class="rounded-3xl bg-gradient-to-br from-white/90 to-primary-50/70 dark:from-gray-900/90 dark:to-gray-900 border border-gray-200 dark:border-gray-800 p-8 sm:p-10 lg:p-12 shadow-xl"
           >
             <div class="max-w-3xl mb-10">
-              <p
-                class="text-sm font-semibold uppercase tracking-wider text-primary-700 dark:text-primary-300 mb-3"
-              >
-                Get In Touch
+              <p class="text-sm font-semibold uppercase tracking-wider text-primary-700 dark:text-primary-300 mb-3">
+                {{ __('Get In Touch') }}
               </p>
               <h2 class="text-4xl md:text-5xl font-black text-gray-900 dark:text-white mb-4">
-                Let's build something meaningful
+                {{ __("Let's build something meaningful") }}
               </h2>
               <p class="text-lg text-gray-700 dark:text-gray-300 leading-relaxed">
-                I'm always open to discussing new projects, creative ideas, or
-                opportunities to be part of your vision. Feel free to reach out!
+                {{ __("I'm always open to discussing new projects, creative ideas, or opportunities to be part of your vision. Feel free to reach out!") }}
               </p>
             </div>
 
@@ -500,27 +226,25 @@
                 class="mb-6 flex items-start gap-3 rounded-xl border border-red-200 bg-red-50 px-4 py-3 text-red-800 dark:border-red-800 dark:bg-red-900/30 dark:text-red-200"
               >
                 <i class="fas fa-circle-exclamation mt-1"></i>
-                <span>Your message wasn't sent. Please fix the highlighted fields and try again.</span>
+                <span>{{ __("Your message wasn't sent. Please fix the highlighted fields and try again.") }}</span>
               </div>
             @endif
 
             <div class="grid lg:grid-cols-2 gap-6">
               <div class="grid sm:grid-cols-2 gap-5 content-start">
                 <a
-                  href="mailto:contact@mdtanvir.com"
+                  href="mailto:{{ config('portfolio.email') }}"
                   class="contact-card bg-white dark:bg-gray-900 p-6 rounded-2xl shadow-lg hover:shadow-2xl transition-all transform hover:-translate-y-1 border border-gray-200 dark:border-gray-800 text-center"
                 >
                   <div class="text-4xl mb-4 text-primary-600 dark:text-primary-400">
                     <i class="fas fa-envelope"></i>
                   </div>
-                  <h3 class="font-bold mb-2 text-gray-900 dark:text-white">Email</h3>
-                  <p class="text-gray-700 dark:text-gray-300 text-sm">
-                    contact@mdtanvir.com
-                  </p>
+                  <h3 class="font-bold mb-2 text-gray-900 dark:text-white">{{ __('Email') }}</h3>
+                  <p class="text-gray-700 dark:text-gray-300 text-sm">{{ config('portfolio.email') }}</p>
                 </a>
 
                 <a
-                  href="https://www.linkedin.com/in/tanvir-cs"
+                  href="{{ config('portfolio.linkedin') }}"
                   target="_blank"
                   rel="noopener noreferrer"
                   class="contact-card bg-white dark:bg-gray-900 p-6 rounded-2xl shadow-lg hover:shadow-2xl transition-all transform hover:-translate-y-1 border border-gray-200 dark:border-gray-800 text-center"
@@ -528,16 +252,12 @@
                   <div class="text-4xl mb-4 text-primary-600 dark:text-primary-400">
                     <i class="fab fa-linkedin"></i>
                   </div>
-                  <h3 class="font-bold mb-2 text-gray-900 dark:text-white">
-                    LinkedIn
-                  </h3>
-                  <p class="text-gray-700 dark:text-gray-300 text-sm">
-                    Connect with me
-                  </p>
+                  <h3 class="font-bold mb-2 text-gray-900 dark:text-white">LinkedIn</h3>
+                  <p class="text-gray-700 dark:text-gray-300 text-sm">{{ __('Connect with me') }}</p>
                 </a>
 
                 <a
-                  href="https://github.com/tanvir-cs"
+                  href="{{ config('portfolio.github') }}"
                   target="_blank"
                   rel="noopener noreferrer"
                   class="contact-card bg-white dark:bg-gray-900 p-6 rounded-2xl shadow-lg hover:shadow-2xl transition-all transform hover:-translate-y-1 border border-gray-200 dark:border-gray-800 text-center sm:col-span-2"
@@ -546,67 +266,58 @@
                     <i class="fab fa-github"></i>
                   </div>
                   <h3 class="font-bold mb-2 text-gray-900 dark:text-white">GitHub</h3>
-                  <p class="text-gray-700 dark:text-gray-300 text-sm">View my code</p>
+                  <p class="text-gray-700 dark:text-gray-300 text-sm">{{ __('View my code') }}</p>
                 </a>
               </div>
 
               <div class="space-y-5">
-              @include('partials.project-brief')
+                @include('partials.project-brief')
 
-              <form id="contact-form" method="POST" action="{{ route('contact.store') }}" class="bg-white dark:bg-gray-900 p-6 rounded-2xl shadow-lg border border-gray-200 dark:border-gray-800 space-y-4">
-                @csrf
-                <h3 class="text-xl font-bold text-gray-900 dark:text-white">Send a Message</h3>
-                <div>
-                  <label class="block text-sm font-medium mb-2" for="name">Name</label>
-                  <input id="name" name="name" type="text" value="{{ old('name') }}" required class="w-full rounded-xl border border-gray-300 dark:border-gray-700 bg-white dark:bg-gray-800 px-4 py-3 focus:outline-none focus:ring-2 focus:ring-primary-500" />
-                  @error('name')
-                    <p class="text-sm text-red-600 mt-1">{{ $message }}</p>
-                  @enderror
-                </div>
-                <div>
-                  <label class="block text-sm font-medium mb-2" for="email">Email</label>
-                  <input id="email" name="email" type="email" value="{{ old('email') }}" required class="w-full rounded-xl border border-gray-300 dark:border-gray-700 bg-white dark:bg-gray-800 px-4 py-3 focus:outline-none focus:ring-2 focus:ring-primary-500" />
-                  @error('email')
-                    <p class="text-sm text-red-600 mt-1">{{ $message }}</p>
-                  @enderror
-                </div>
-                <div>
-                  <label class="block text-sm font-medium mb-2" for="subject">Subject</label>
-                  <input id="subject" name="subject" type="text" value="{{ old('subject') }}" required class="w-full rounded-xl border border-gray-300 dark:border-gray-700 bg-white dark:bg-gray-800 px-4 py-3 focus:outline-none focus:ring-2 focus:ring-primary-500" />
-                  @error('subject')
-                    <p class="text-sm text-red-600 mt-1">{{ $message }}</p>
-                  @enderror
-                </div>
-                <div>
-                  <label class="block text-sm font-medium mb-2" for="message">Message</label>
-                  <textarea id="message" name="message" rows="5" required class="w-full rounded-xl border border-gray-300 dark:border-gray-700 bg-white dark:bg-gray-800 px-4 py-3 focus:outline-none focus:ring-2 focus:ring-primary-500">{{ old('message') }}</textarea>
-                  @error('message')
-                    <p class="text-sm text-red-600 mt-1">{{ $message }}</p>
-                  @enderror
-                </div>
-                @if (filled($turnstileSiteKey))
+                <form id="contact-form" method="POST" action="{{ route('contact.store') }}" class="bg-white dark:bg-gray-900 p-6 rounded-2xl shadow-lg border border-gray-200 dark:border-gray-800 space-y-4">
+                  @csrf
+                  <input type="hidden" name="locale" value="{{ app()->getLocale() }}" />
+                  <h3 class="text-xl font-bold text-gray-900 dark:text-white">{{ __('Send a Message') }}</h3>
+                  @foreach ([
+                    ['name', __('Name'), 'text'],
+                    ['email', __('Email'), 'email'],
+                    ['subject', __('Subject'), 'text'],
+                  ] as [$field, $label, $inputType])
+                    <div>
+                      <label class="block text-sm font-medium mb-2" for="{{ $field }}">{{ $label }}</label>
+                      <input id="{{ $field }}" name="{{ $field }}" type="{{ $inputType }}" value="{{ old($field) }}" required class="w-full rounded-xl border border-gray-300 dark:border-gray-700 bg-white dark:bg-gray-800 px-4 py-3 focus:outline-none focus:ring-2 focus:ring-primary-500" />
+                      @error($field)
+                        <p class="text-sm text-red-600 mt-1">{{ $message }}</p>
+                      @enderror
+                    </div>
+                  @endforeach
                   <div>
-                    <div class="cf-turnstile" data-sitekey="{{ $turnstileSiteKey }}"></div>
-                    @error('cf-turnstile-response')
-                      <p class="text-sm text-red-600 mt-1">{{ $message }}</p>
-                    @enderror
-                    @error('turnstile')
+                    <label class="block text-sm font-medium mb-2" for="message">{{ __('Message') }}</label>
+                    <textarea id="message" name="message" rows="5" required class="w-full rounded-xl border border-gray-300 dark:border-gray-700 bg-white dark:bg-gray-800 px-4 py-3 focus:outline-none focus:ring-2 focus:ring-primary-500">{{ old('message') }}</textarea>
+                    @error('message')
                       <p class="text-sm text-red-600 mt-1">{{ $message }}</p>
                     @enderror
                   </div>
-                @endif
-                <button type="submit" class="w-full px-6 py-3 rounded-xl bg-primary-600 hover:bg-primary-700 disabled:opacity-60 disabled:cursor-wait text-white font-semibold transition">
-                  Submit Message
-                </button>
-              </form>
+                  @if (filled($turnstileSiteKey))
+                    <div>
+                      <div class="cf-turnstile" data-sitekey="{{ $turnstileSiteKey }}" data-language="{{ app()->getLocale() }}"></div>
+                      @error('cf-turnstile-response')
+                        <p class="text-sm text-red-600 mt-1">{{ $message }}</p>
+                      @enderror
+                      @error('turnstile')
+                        <p class="text-sm text-red-600 mt-1">{{ $message }}</p>
+                      @enderror
+                    </div>
+                  @endif
+                  <button type="submit" class="w-full px-6 py-3 rounded-xl bg-primary-600 hover:bg-primary-700 disabled:opacity-60 disabled:cursor-wait text-white font-semibold transition">
+                    {{ __('Submit Message') }}
+                  </button>
+                </form>
               </div>
             </div>
 
-            <div
-              class="mt-10 pt-6 border-t border-gray-200 dark:border-gray-800 text-center"
-            >
+            <div class="mt-10 pt-6 border-t border-gray-200 dark:border-gray-800 text-center">
               <p class="text-gray-600 dark:text-gray-400">
-                © {{ now()->year }} MD Tanvir Hossain. All rights reserved.
+                © {{ now()->year }} MD Tanvir Hossain. {{ __('All rights reserved.') }}
               </p>
             </div>
           </div>
@@ -616,7 +327,7 @@
 
     <button
       id="scroll-top"
-      aria-label="Scroll to top"
+      aria-label="{{ __('Scroll to top') }}"
       class="fixed bottom-8 right-8 p-4 bg-primary-600 hover:bg-primary-700 text-white rounded-full shadow-lg hover:shadow-xl transition-all transform hover:scale-110 opacity-0 pointer-events-none z-50"
     >
       <i class="fas fa-arrow-up"></i>

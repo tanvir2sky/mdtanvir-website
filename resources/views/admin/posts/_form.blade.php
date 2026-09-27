@@ -112,6 +112,17 @@
       <input type="checkbox" name="is_featured" value="1" {{ old('is_featured', $post?->is_featured) ? 'checked' : '' }} />
       <span>Featured <span class="text-xs text-gray-500">(the latest featured post is shown large at the top of the blog)</span></span>
     </label>
+    @if ($post?->newsletter_sent_at)
+      <span class="flex items-center gap-2 text-sm text-gray-500">
+        <i class="fas fa-paper-plane text-green-600"></i>
+        Emailed to subscribers on {{ $post->newsletter_sent_at->format('M d, Y H:i') }}
+      </span>
+    @else
+      <label class="flex items-center gap-2">
+        <input type="checkbox" name="notify_subscribers" value="1" {{ old('notify_subscribers', $post?->notify_subscribers ?? true) ? 'checked' : '' }} />
+        <span>Email subscribers when published <span class="text-xs text-gray-500">(sent once, as soon as the post is live)</span></span>
+      </label>
+    @endif
   </div>
 
   <div class="flex items-center gap-3 pt-3">

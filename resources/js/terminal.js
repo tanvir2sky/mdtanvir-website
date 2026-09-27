@@ -1,4 +1,6 @@
 // Interactive "php artisan" terminal in the hero section.
+import { t } from "./i18n";
+
 const terminal = document.getElementById("hero-terminal");
 
 if (terminal) {
@@ -30,21 +32,16 @@ if (terminal) {
   const commands = {
     help: () =>
       [
-        '<div class="text-yellow-300">Available commands:</div>',
-        row("about", "Who I am"),
-        row("skills", "Tech stack by area"),
-        row("experience", "Career timeline"),
-        row("projects", "Selected work"),
-        row("contact", "How to reach me"),
-        data.cv_url ? row("cv", "Download my CV") : "",
-        row("clear", "Clear the screen"),
+        `<div class="text-yellow-300">${escapeHtml(t("terminal.available"))}</div>`,
+        ...["about", "skills", "experience", "projects", "contact", "cv", "clear"]
+          .filter((name) => name !== "cv" || data.cv_url)
+          .map((name) => row(name, escapeHtml(t(`terminal.commands.${name}`)))),
       ].join(""),
 
     about: () =>
       [
         `<div class="text-cyan-300 font-bold">${escapeHtml(data.name)}</div>`,
-        row("Role", escapeHtml(data.role)),
-        row("Location", escapeHtml(data.location)),
+        row(t("terminal.role"), escapeHtml(data.role)),
         `<div class="mt-1 text-gray-300">${escapeHtml(data.summary)}</div>`,
       ].join(""),
 
@@ -66,17 +63,17 @@ if (terminal) {
     contact: () => {
       setTimeout(() => scrollToSection("contact"), 400);
       return [
-        row("Email", `<a class="underline" href="mailto:${escapeHtml(data.email)}">${escapeHtml(data.email)}</a>`),
+        row(t("terminal.email"), `<a class="underline" href="mailto:${escapeHtml(data.email)}">${escapeHtml(data.email)}</a>`),
         row("LinkedIn", `<a class="underline" href="${escapeHtml(data.linkedin)}" target="_blank" rel="noopener noreferrer">tanvir-cs</a>`),
         row("GitHub", `<a class="underline" href="${escapeHtml(data.github)}" target="_blank" rel="noopener noreferrer">tanvir-cs</a>`),
-        '<div class="text-gray-400">Scrolling to the contact form…</div>',
+        `<div class="text-gray-400">${escapeHtml(t("terminal.scrolling"))}</div>`,
       ].join("");
     },
 
     cv: () => {
-      if (!data.cv_url) return '<div class="text-red-400">CV is not available yet.</div>';
+      if (!data.cv_url) return `<div class="text-red-400">${escapeHtml(t("terminal.noCv"))}</div>`;
       window.open(data.cv_url, "_blank", "noopener");
-      return '<div class="text-gray-400">Opening CV…</div>';
+      return `<div class="text-gray-400">${escapeHtml(t("terminal.openingCv"))}</div>`;
     },
   };
 
@@ -102,7 +99,7 @@ if (terminal) {
     print(
       handler
         ? handler()
-        : `<div class="text-red-400">Command "${escapeHtml(command)}" is not defined.</div><div class="text-gray-400">Try <span class="text-yellow-300">help</span>.</div>`
+        : `<div class="text-red-400">${escapeHtml(t("terminal.notDefined", { command }))}</div><div class="text-gray-400">${escapeHtml(t("terminal.try"))} <span class="text-yellow-300">help</span>.</div>`
     );
   };
 
@@ -134,13 +131,18 @@ if (terminal) {
     if (event.target.tagName !== "A") input.focus({ preventScroll: true });
   });
 
+  const printHint = () => {
+    const hint = escapeHtml(t("terminal.hint")).replace(":help", '<span class="text-yellow-300">help</span>');
+    print(`<div class="mt-2 text-gray-500">${hint}</div>`);
+  };
+
   // Intro: "type" the about command once, then show the help hint.
   const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
   const intro = "about";
 
   if (reduceMotion) {
     run(intro);
-    print('<div class="mt-2 text-gray-500">Type <span class="text-yellow-300">help</span> to see what else you can run.</div>');
+    printHint();
   } else {
     let i = 0;
     const typer = setInterval(() => {
@@ -150,7 +152,7 @@ if (terminal) {
         setTimeout(() => {
           input.value = "";
           run(intro);
-          print('<div class="mt-2 text-gray-500">Type <span class="text-yellow-300">help</span> to see what else you can run.</div>');
+          printHint();
         }, 350);
       }
     }, 120);

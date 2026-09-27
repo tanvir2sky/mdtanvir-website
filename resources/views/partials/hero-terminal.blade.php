@@ -1,6 +1,5 @@
 @php
-  $terminalData = config('portfolio');
-  $terminalData['cv_url'] = $cvUrl ?? null;
+  $terminalData = \App\Support\Portfolio::terminalData();
 @endphp
 <div
   id="hero-terminal"
@@ -27,7 +26,7 @@
       autocapitalize="off"
       spellcheck="false"
       placeholder="help"
-      aria-label="Terminal command"
+      aria-label="{{ __('Terminal command') }}"
       class="flex-1 min-w-0 bg-transparent text-gray-100 placeholder-gray-600 focus:outline-none"
     />
   </form>

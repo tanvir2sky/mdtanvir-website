@@ -4,7 +4,9 @@ namespace App\Http\Controllers;
 
 use App\Models\ContactMessage;
 use App\Notifications\NewContactMessage;
+use App\Support\Locale;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Notification;
@@ -15,7 +17,9 @@ class ContactController extends Controller
     public function store(Request $request)
     {
         $turnstileEnabled = filled(config('services.turnstile.site_key')) && filled(config('services.turnstile.secret_key'));
-        $contactUrl = route('home').'#contact';
+        $locale = Locale::isSupported($request->input('locale')) ? $request->input('locale') : Locale::default();
+        App::setLocale($locale);
+        $contactUrl = lroute('home', [], $locale).'#contact';
 
         $validator = Validator::make($request->all(), [
             'name' => ['required', 'string', 'max:120'],
@@ -43,7 +47,7 @@ class ContactController extends Controller
 
             if (! $verification->json('success')) {
                 return redirect()->to($contactUrl)
-                    ->withErrors(['turnstile' => 'Captcha verification failed. Please try again.'])
+                    ->withErrors(['turnstile' => __('Captcha verification failed. Please try again.')])
                     ->withInput();
             }
         }
@@ -61,6 +65,6 @@ class ContactController extends Controller
         }
 
         return redirect()->to($contactUrl)
-            ->with('contact_status', 'Thanks, your message has been sent successfully. I will get back to you soon.');
+            ->with('contact_status', __('Thanks, your message has been sent successfully. I will get back to you soon.'));
     }
 }

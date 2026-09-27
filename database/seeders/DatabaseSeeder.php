@@ -35,6 +35,6 @@ class DatabaseSeeder extends Seeder
             'clarity_project_id' => null,
         ]);
 
-        $this->call(PostSeeder::class);
+        $this->call([PortfolioSeeder::class, PostSeeder::class]);
     }
 }
