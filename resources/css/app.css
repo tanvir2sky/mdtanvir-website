@@ -154,15 +154,6 @@ section[id].visible {
   color: #38bdf8;
 }
 
-/* Skill card hover effect */
-.skill-card:hover {
-  border-color: #0ea5e9;
-}
-
-.dark .skill-card:hover {
-  border-color: #38bdf8;
-}
-
 /* Contact card hover effect */
 .contact-card:hover {
   border-color: #0ea5e9;
@@ -413,4 +404,31 @@ button:focus {
 
 .dark [data-toc-link].is-active {
   color: var(--color-primary-300);
+}
+
+/* Skills: endless scrolling strip (the list is rendered twice, so -50% loops seamlessly) */
+.skills-marquee-track {
+  animation: skills-marquee 40s linear infinite;
+}
+
+.skills-marquee:hover .skills-marquee-track {
+  animation-play-state: paused;
+}
+
+@keyframes skills-marquee {
+  to {
+    transform: translateX(calc(-50% - 0.375rem));
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .skills-marquee-track {
+    animation: none;
+    flex-wrap: wrap;
+    width: auto;
+  }
+
+  .skills-marquee-copy {
+    display: none;
+  }
 }
