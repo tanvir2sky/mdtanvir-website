@@ -11,11 +11,17 @@
     ['navigation', 'projects', __('Projects'), 'fas fa-diagram-project', $homeUrl.'#projects', 'work portfolio'],
     ['navigation', 'blog', __('Blog'), 'fas fa-newspaper', lroute('blog.index'), 'articles posts writing'],
     ['navigation', 'contact', __('Contact'), 'fas fa-paper-plane', $homeUrl.'#contact', 'hire email message'],
+    ['navigation', 'tools', __('Tools'), 'fas fa-toolbox', lroute('tools.index'), 'developer utilities free'],
+    ['navigation', 'tool-shopify-check', __('Shopify store health check'), 'fab fa-shopify', lroute('tools.shopify-check'), 'audit seo speed store'],
+    ['navigation', 'tool-hmac', __('Shopify webhook HMAC verifier'), 'fas fa-shield-halved', lroute('tools.hmac'), 'signature webhook security'],
+    ['navigation', 'tool-cron', __('Cron expression explainer'), 'fas fa-clock', lroute('tools.cron'), 'schedule crontab laravel scheduler'],
+    ['navigation', 'guestbook', __('Guestbook'), 'fas fa-book-open', lroute('guestbook.index'), 'notes messages sign'],
   ])->map(fn ($c) => ['group' => $c[0], 'id' => "nav-{$c[1]}", 'title' => $c[2], 'icon' => $c[3], 'url' => $c[4], 'keywords' => $c[5]])
     ->concat(array_values(array_filter([
       ['group' => 'action', 'id' => 'copy-email', 'title' => __('Copy email address'), 'subtitle' => config('portfolio.email'), 'icon' => 'fas fa-copy', 'action' => 'copy', 'value' => config('portfolio.email'), 'keywords' => 'mail contact'],
       ['group' => 'action', 'id' => 'toggle-theme', 'title' => __('Toggle dark mode'), 'icon' => 'fas fa-circle-half-stroke', 'action' => 'theme', 'keywords' => 'light dark theme'],
       ['group' => 'action', 'id' => 'switch-language', 'title' => $otherLocale === 'de' ? 'Auf Deutsch lesen' : 'Read in English', 'icon' => 'fas fa-language', 'url' => locale_switch_url($otherLocale), 'keywords' => 'language deutsch english sprache'],
+      \App\Models\SiteSetting::bookingAvailable() ? ['group' => 'action', 'id' => 'book-call', 'title' => __('Book a call'), 'icon' => 'fas fa-calendar-check', 'url' => lroute('book.index'), 'keywords' => 'meeting schedule call termin'] : null,
       $cvUrl ? ['group' => 'action', 'id' => 'download-cv', 'title' => __('Download CV'), 'icon' => 'fas fa-file-arrow-down', 'url' => $cvUrl, 'keywords' => 'resume lebenslauf'] : null,
       ['group' => 'action', 'id' => 'linkedin', 'title' => 'LinkedIn', 'icon' => 'fab fa-linkedin', 'url' => config('portfolio.linkedin'), 'external' => true, 'keywords' => 'social connect'],
       ['group' => 'action', 'id' => 'github', 'title' => 'GitHub', 'icon' => 'fab fa-github', 'url' => config('portfolio.github'), 'external' => true, 'keywords' => 'code repositories'],

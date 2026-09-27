@@ -84,6 +84,17 @@
         </nav>
       @endif
 
+      {{-- Sort --}}
+      <div class="mb-8 flex items-center justify-end gap-1 text-sm" role="group" aria-label="{{ __('Sort articles') }}">
+        @foreach (['latest' => [__('Latest'), 'fa-clock'], 'popular' => [__('Popular'), 'fa-fire']] as $value => [$label, $icon])
+          <a
+            href="{{ lroute('blog.index', array_filter(['q' => $search, 'category' => $category, 'tag' => $tag, 'sort' => $value === 'latest' ? null : $value])) }}"
+            @if ($sort === $value) aria-current="true" @endif
+            class="inline-flex items-center gap-1.5 rounded-full px-3.5 py-1.5 font-semibold transition {{ $sort === $value ? 'bg-gray-900 text-white dark:bg-white dark:text-gray-900' : 'text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white' }}"
+          ><i class="fas {{ $icon }} text-xs"></i>{{ $label }}</a>
+        @endforeach
+      </div>
+
       {{-- Active filters --}}
       @if ($filtering)
         <div class="mb-8 flex flex-wrap items-center gap-3 text-sm text-gray-600 dark:text-gray-400">

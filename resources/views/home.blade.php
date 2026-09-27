@@ -61,6 +61,14 @@
                 >
                   {{ __('Get In Touch') }}
                 </a>
+                @if ($bookingAvailable)
+                  <a
+                    href="{{ lroute('book.index') }}"
+                    class="px-6 sm:px-8 py-3 rounded-xl font-semibold border-2 border-primary-600 text-primary-700 dark:text-primary-300 hover:bg-primary-600 hover:text-white transition-all"
+                  >
+                    <i class="fas fa-calendar-check mr-2"></i>{{ __('Book a call') }}
+                  </a>
+                @endif
                 <a
                   href="{{ config('portfolio.linkedin') }}"
                   target="_blank"
@@ -268,6 +276,20 @@
                   <h3 class="font-bold mb-2 text-gray-900 dark:text-white">GitHub</h3>
                   <p class="text-gray-700 dark:text-gray-300 text-sm">{{ __('View my code') }}</p>
                 </a>
+
+                @if ($bookingAvailable)
+                  <a
+                    href="{{ lroute('book.index') }}"
+                    class="contact-card sm:col-span-2 flex items-center gap-5 rounded-2xl p-6 text-left text-white shadow-lg transition-all hover:-translate-y-1 hover:shadow-2xl bg-gradient-to-br from-cyan-500 via-primary-600 to-violet-600"
+                  >
+                    <span class="grid h-14 w-14 shrink-0 place-items-center rounded-2xl bg-white/15 text-2xl"><i class="fas fa-calendar-check"></i></span>
+                    <span>
+                      <span class="block text-lg font-bold">{{ __('Book a free intro call') }}</span>
+                      <span class="block text-sm text-white/85">{{ __('Pick a time that suits you, :minutes minutes, no strings attached.', ['minutes' => config('booking.slot_minutes', 30)]) }}</span>
+                    </span>
+                    <i class="fas fa-arrow-right ml-auto"></i>
+                  </a>
+                @endif
               </div>
 
               <div class="space-y-5">
@@ -284,7 +306,7 @@
                   ] as [$field, $label, $inputType])
                     <div>
                       <label class="block text-sm font-medium mb-2" for="{{ $field }}">{{ $label }}</label>
-                      <input id="{{ $field }}" name="{{ $field }}" type="{{ $inputType }}" value="{{ old($field) }}" required class="w-full rounded-xl border border-gray-300 dark:border-gray-700 bg-white dark:bg-gray-800 px-4 py-3 focus:outline-none focus:ring-2 focus:ring-primary-500" />
+                      <input id="{{ $field }}" name="{{ $field }}" type="{{ $inputType }}" value="{{ old($field, $field === 'subject' ? request()->query('subject') : null) }}" required class="w-full rounded-xl border border-gray-300 dark:border-gray-700 bg-white dark:bg-gray-800 px-4 py-3 focus:outline-none focus:ring-2 focus:ring-primary-500" />
                       @error($field)
                         <p class="text-sm text-red-600 mt-1">{{ $message }}</p>
                       @enderror

@@ -14,8 +14,8 @@
       </span>
       <h1 class="mb-3 text-3xl font-black tracking-tight text-gray-900 dark:text-white">{{ $title }}</h1>
       <p class="mb-8 text-gray-600 dark:text-gray-400">{{ $message }}</p>
-      <a href="{{ lroute('blog.index') }}" class="inline-flex items-center gap-2 rounded-xl bg-primary-600 px-5 py-3 font-semibold text-white hover:bg-primary-700 transition">
-        {{ __('Browse articles') }} <i class="fas fa-arrow-right text-xs"></i>
+      <a href="{{ $actionUrl ?? lroute('blog.index') }}" class="inline-flex items-center gap-2 rounded-xl bg-primary-600 px-5 py-3 font-semibold text-white hover:bg-primary-700 transition">
+        {{ $actionLabel ?? __('Browse articles') }} <i class="fas fa-arrow-right text-xs"></i>
       </a>
     </div>
   </main>

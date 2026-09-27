@@ -2,6 +2,8 @@
 
 namespace App\Providers;
 
+use App\Support\Http\DnsHostResolver;
+use App\Support\Http\HostResolver;
 use Illuminate\Support\ServiceProvider;
 
 class AppServiceProvider extends ServiceProvider
@@ -11,7 +13,7 @@ class AppServiceProvider extends ServiceProvider
      */
     public function register(): void
     {
-        //
+        $this->app->bind(HostResolver::class, DnsHostResolver::class);
     }
 
     /**

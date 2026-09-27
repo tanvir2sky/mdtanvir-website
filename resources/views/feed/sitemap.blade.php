@@ -5,6 +5,11 @@
     $localized = [
       ['home', [], 'monthly', '1.0', null],
       ['blog.index', [], 'weekly', '0.8', null],
+      ['tools.index', [], 'monthly', '0.7', null],
+      ['tools.shopify-check', [], 'monthly', '0.7', null],
+      ['tools.hmac', [], 'monthly', '0.6', null],
+      ['tools.cron', [], 'monthly', '0.6', null],
+      ['guestbook.index', [], 'weekly', '0.4', null],
     ];
     foreach ($projects as $project) {
       $localized[] = ['projects.show', $project->slug, 'monthly', '0.7', $project->updated_at];

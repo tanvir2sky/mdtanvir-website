@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Post;
+use App\Models\SiteSetting;
 use App\Support\Portfolio;
 
 class HomeController extends Controller
@@ -15,6 +16,7 @@ class HomeController extends Controller
             'skillGroups' => Portfolio::skillGroups(),
             'projects' => Portfolio::projects(),
             'cvUrl' => Portfolio::cvUrl(),
+            'bookingAvailable' => SiteSetting::bookingAvailable(),
         ]);
     }
 }

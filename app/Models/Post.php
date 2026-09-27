@@ -5,6 +5,7 @@ namespace App\Models;
 use App\Support\HtmlToc;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
 
@@ -38,7 +39,35 @@ class Post extends Model
             'notify_subscribers' => 'boolean',
             'published_at' => 'datetime',
             'newsletter_sent_at' => 'datetime',
+            'views_count' => 'integer',
         ];
+    }
+
+    public function reactions(): HasMany
+    {
+        return $this->hasMany(PostReaction::class);
+    }
+
+    /** Reaction counts per type, e.g. ['like' => 3, 'fire' => 0, 'idea' => 1]. */
+    public function reactionCounts(): array
+    {
+        $counts = $this->relationLoaded('reactions')
+            ? $this->reactions->countBy('type')->all()
+            : $this->reactions()->selectRaw('type, count(*) as total')->groupBy('type')->pluck('total', 'type')->all();
+
+        return collect(PostReaction::TYPES)->map(fn ($emoji, $type) => (int) ($counts[$type] ?? 0))->all();
+    }
+
+    /** Compact view count: 950, 1.2k, 3.4M. */
+    public function formattedViews(): string
+    {
+        $views = (int) $this->views_count;
+
+        return match (true) {
+            $views >= 1_000_000 => rtrim(rtrim(number_format($views / 1_000_000, 1), '0'), '.').'M',
+            $views >= 1_000 => rtrim(rtrim(number_format($views / 1_000, 1), '0'), '.').'k',
+            default => (string) $views,
+        };
     }
 
     public function scopePublished(Builder $query): void

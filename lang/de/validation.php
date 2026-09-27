@@ -14,8 +14,17 @@ return [
         'numeric' => ':attribute darf nicht größer als :max sein.',
         'string' => ':attribute darf nicht länger als :max Zeichen sein.',
     ],
+    'in' => 'Der gewählte Wert für :attribute ist ungültig.',
+    'min' => [
+        'array' => ':attribute muss mindestens :min Elemente haben.',
+        'file' => ':attribute muss mindestens :min Kilobyte groß sein.',
+        'numeric' => ':attribute muss mindestens :min sein.',
+        'string' => ':attribute muss mindestens :min Zeichen lang sein.',
+    ],
     'required' => 'Das Feld :attribute ist erforderlich.',
     'string' => ':attribute muss ein Text sein.',
+    'timezone' => ':attribute muss eine gültige Zeitzone sein.',
+    'url' => ':attribute muss eine gültige URL sein.',
 
     'attributes' => [
         'name' => 'Name',
@@ -23,5 +32,9 @@ return [
         'subject' => 'Betreff',
         'message' => 'Nachricht',
         'cf-turnstile-response' => 'Captcha',
+        'website' => 'Website',
+        'topic' => 'Thema',
+        'start' => 'Termin',
+        'timezone' => 'Zeitzone',
     ],
 ];

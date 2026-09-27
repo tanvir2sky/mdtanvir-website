@@ -42,6 +42,17 @@
               <i class="fas {{ $icon }} mr-2"></i> {{ $label }}
             </a>
           @endforeach
+          <p class="px-4 pt-4 pb-1 text-xs font-semibold uppercase tracking-wider text-gray-500">Engagement</p>
+          @foreach ([
+            ['admin.bookings.', 'admin.bookings.index', 'fa-calendar-check', 'Bookings'],
+            ['admin.availability.', 'admin.availability.edit', 'fa-calendar-week', 'Availability'],
+            ['admin.guestbook.', 'admin.guestbook.index', 'fa-book-open', 'Guestbook'],
+            ['admin.store-checks.', 'admin.store-checks.index', 'fa-store', 'Store checks'],
+          ] as [$prefix, $target, $icon, $label])
+            <a href="{{ route($target) }}" class="block px-4 py-3 rounded-xl {{ str_starts_with((string) $route, $prefix) ? 'bg-primary-600 text-white' : 'hover:bg-gray-100 dark:hover:bg-gray-800' }}">
+              <i class="fas {{ $icon }} mr-2"></i> {{ $label }}
+            </a>
+          @endforeach
           <p class="px-4 pt-4 pb-1 text-xs font-semibold uppercase tracking-wider text-gray-500">Audience</p>
           <a href="{{ route('admin.subscribers.index') }}" class="block px-4 py-3 rounded-xl {{ str_starts_with((string) $route, 'admin.subscribers.') ? 'bg-primary-600 text-white' : 'hover:bg-gray-100 dark:hover:bg-gray-800' }}">
             <i class="fas fa-users mr-2"></i> Subscribers

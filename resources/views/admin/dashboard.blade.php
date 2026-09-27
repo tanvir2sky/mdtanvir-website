@@ -32,6 +32,36 @@
     </div>
   </div>
 
+  <div class="grid sm:grid-cols-3 gap-4 mb-8">
+    @foreach ([
+      ['admin.bookings.index', 'fa-calendar-check', 'Pending bookings', $stats['bookings_pending']],
+      ['admin.guestbook.index', 'fa-book-open', 'Guestbook to review', $stats['guestbook_pending']],
+      ['admin.store-checks.index', 'fa-store', 'Store checks (7 days)', $stats['store_checks_week']],
+    ] as [$target, $icon, $label, $value])
+      <a href="{{ route($target) }}" class="flex items-center gap-4 rounded-2xl border border-gray-200 dark:border-gray-800 bg-white dark:bg-gray-900 p-5 hover:border-primary-400 transition">
+        <span class="grid h-11 w-11 place-items-center rounded-xl bg-primary-50 dark:bg-primary-900/30 text-primary-600 dark:text-primary-300"><i class="fas {{ $icon }}"></i></span>
+        <span>
+          <span class="block text-xs uppercase tracking-wider text-gray-500">{{ $label }}</span>
+          <span class="block text-2xl font-black">{{ $value }}</span>
+        </span>
+      </a>
+    @endforeach
+  </div>
+
+  @if ($topPosts->isNotEmpty() && $topPosts->first()->views_count > 0)
+    <section class="mb-8 rounded-2xl border border-gray-200 dark:border-gray-800 bg-white dark:bg-gray-900 p-6">
+      <h2 class="mb-4 text-xl font-bold">Top Posts</h2>
+      <div class="space-y-2">
+        @foreach ($topPosts as $top)
+          <div class="flex items-center justify-between gap-4 rounded-xl border border-gray-200 dark:border-gray-800 px-4 py-3">
+            <span class="font-semibold">{{ $top->title }}</span>
+            <span class="shrink-0 font-mono text-sm text-gray-500"><i class="far fa-eye mr-1"></i>{{ number_format($top->views_count) }} · <i class="far fa-heart mr-1"></i>{{ $top->reactions_count }}</span>
+          </div>
+        @endforeach
+      </div>
+    </section>
+  @endif
+
   <div class="grid xl:grid-cols-2 gap-6">
     <section class="rounded-2xl border border-gray-200 dark:border-gray-800 bg-white dark:bg-gray-900 p-6">
       <div class="flex items-center justify-between mb-4">

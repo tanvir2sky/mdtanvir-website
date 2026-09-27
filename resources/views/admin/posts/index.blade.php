@@ -21,6 +21,8 @@
           <th class="px-5 py-3 font-semibold">Title</th>
           <th class="px-5 py-3 font-semibold">Category</th>
           <th class="px-5 py-3 font-semibold">Status</th>
+          <th class="px-5 py-3 font-semibold">Views</th>
+          <th class="px-5 py-3 font-semibold">Reactions</th>
           <th class="px-5 py-3 font-semibold">Published At</th>
           <th class="px-5 py-3 font-semibold">Actions</th>
         </tr>
@@ -50,6 +52,8 @@
                 {{ $post->is_published ? 'Published' : 'Draft' }}
               </span>
             </td>
+            <td class="px-5 py-4 font-mono">{{ number_format($post->views_count) }}</td>
+            <td class="px-5 py-4 font-mono">{{ $post->reactions_count }}</td>
             <td class="px-5 py-4">{{ $post->published_at?->format('M d, Y H:i') ?? '-' }}</td>
             <td class="px-5 py-4">
               <div class="flex items-center gap-2">
@@ -65,7 +69,7 @@
           </tr>
         @empty
           <tr>
-            <td colspan="6" class="px-5 py-10 text-center text-gray-500">No posts found.</td>
+            <td colspan="8" class="px-5 py-10 text-center text-gray-500">No posts found.</td>
           </tr>
         @endforelse
       </tbody>

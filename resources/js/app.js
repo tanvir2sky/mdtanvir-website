@@ -5,6 +5,10 @@ import "./terminal";
 import "./project-brief";
 import "./blog";
 import "./command-palette";
+import "./tools/hmac";
+import "./tools/cron";
+import "./reactions";
+import "./booking";
 
 // Theme Toggle
 const themeToggle = document.getElementById("theme-toggle");

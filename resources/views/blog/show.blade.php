@@ -100,6 +100,9 @@
           <time datetime="{{ $post->published_at?->toDateString() }}">{{ $post->published_at?->translatedFormat('F d, Y') }}</time>
         </span>
         <span class="flex items-center gap-2"><i class="far fa-clock"></i>{{ __(':minutes min read', ['minutes' => $post->readingTime()]) }}</span>
+        @if ($post->views_count > 0)
+          <span class="flex items-center gap-2"><i class="far fa-eye"></i>{{ trans_choice(':count view|:count views', $post->views_count, ['count' => $post->formattedViews()]) }}</span>
+        @endif
       </div>
     </header>
 
@@ -175,6 +178,8 @@
             @endforeach
           </ul>
         @endif
+
+        @include('blog.partials.reactions')
 
         {{-- Author --}}
         <section class="relative mt-12 overflow-hidden rounded-3xl p-px bg-gradient-to-br from-cyan-400 via-primary-500 to-violet-500">

@@ -3,6 +3,7 @@
   $onHome = request()->routeIs('home', 'de.home');
   $homeUrl = $onHome ? '' : lroute('home');
   $isBlog = request()->routeIs('blog.*', 'de.blog.*');
+  $isTools = request()->routeIs('tools.*', 'de.tools.*');
   $links = [
     ['#home', __('Home')],
     ['#about', __('About')],
@@ -30,6 +31,7 @@
           <a href="{{ $homeUrl }}{{ $anchor }}" class="{{ $onHome ? 'nav-link' : '' }} {{ $linkClass }}">{{ $label }}</a>
         @endforeach
         <a href="{{ lroute('blog.index') }}" class="{{ $isBlog ? 'text-sm font-semibold text-primary-700 dark:text-primary-300' : $linkClass }}">{{ __('Blog') }}</a>
+        <a href="{{ lroute('tools.index') }}" class="{{ $isTools ? 'text-sm font-semibold text-primary-700 dark:text-primary-300' : $linkClass }}">{{ __('Tools') }}</a>
         <a href="{{ $homeUrl }}#contact" class="{{ $onHome ? 'nav-link' : '' }} {{ $linkClass }}">{{ __('Contact') }}</a>
       </div>
 
@@ -92,6 +94,7 @@
         <a href="{{ $homeUrl }}{{ $anchor }}" class="block {{ $onHome ? 'nav-link' : '' }} text-gray-700 dark:text-gray-300 hover:text-primary-600 dark:hover:text-primary-400">{{ $label }}</a>
       @endforeach
       <a href="{{ lroute('blog.index') }}" class="block {{ $isBlog ? 'font-semibold text-primary-700 dark:text-primary-300' : 'text-gray-700 dark:text-gray-300 hover:text-primary-600 dark:hover:text-primary-400' }}">{{ __('Blog') }}</a>
+      <a href="{{ lroute('tools.index') }}" class="block {{ $isTools ? 'font-semibold text-primary-700 dark:text-primary-300' : 'text-gray-700 dark:text-gray-300 hover:text-primary-600 dark:hover:text-primary-400' }}">{{ __('Tools') }}</a>
       <a href="{{ $homeUrl }}#contact" class="block {{ $onHome ? 'nav-link' : '' }} text-gray-700 dark:text-gray-300 hover:text-primary-600 dark:hover:text-primary-400">{{ __('Contact') }}</a>
     </div>
   </div>

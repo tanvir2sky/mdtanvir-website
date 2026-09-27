@@ -36,9 +36,12 @@
     <p @if ($foreign) lang="en" @endif class="mb-6 line-clamp-3 text-gray-600 dark:text-gray-400">{{ $post->summary(150) }}</p>
 
     <div class="mt-auto flex items-center justify-between text-sm">
-      <time datetime="{{ $post->published_at?->toDateString() }}" class="text-gray-500">
-        {{ $post->published_at?->translatedFormat('M d, Y') }}
-      </time>
+      <span class="flex items-center gap-3 text-gray-500">
+        <time datetime="{{ $post->published_at?->toDateString() }}">{{ $post->published_at?->translatedFormat('M d, Y') }}</time>
+        @if ($post->views_count > 0)
+          <span class="flex items-center gap-1 text-xs" title="{{ trans_choice(':count view|:count views', $post->views_count, ['count' => $post->formattedViews()]) }}"><i class="far fa-eye"></i>{{ $post->formattedViews() }}</span>
+        @endif
+      </span>
       <span class="inline-flex items-center gap-1.5 font-semibold text-primary-600 dark:text-primary-400">
         {{ __('Read') }}
         <i class="fas fa-arrow-right text-xs transition-transform group-hover:translate-x-1"></i>

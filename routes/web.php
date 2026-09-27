@@ -1,6 +1,15 @@
 <?php
 
+use App\Http\Controllers\Admin\AvailabilityController;
+use App\Http\Controllers\Admin\BookingController as AdminBookingController;
 use App\Http\Controllers\Admin\ContactMessageController;
+use App\Http\Controllers\Admin\GuestbookController as AdminGuestbookController;
+use App\Http\Controllers\Admin\StoreCheckController;
+use App\Http\Controllers\BookingController;
+use App\Http\Controllers\GuestbookController;
+use App\Http\Controllers\ReactionController;
+use App\Http\Controllers\ShopifyCheckController;
+use App\Http\Controllers\ToolsController;
 use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\Admin\ExperienceController;
 use App\Http\Controllers\Admin\PostController;
@@ -35,8 +44,33 @@ foreach (Locale::PREFIXES as $locale => $prefix) {
             Route::get('/search.json', SearchController::class)->name('search');
             Route::get('/newsletter/confirmed', [NewsletterController::class, 'confirmed'])->name('newsletter.confirmed');
             Route::get('/newsletter/unsubscribed', [NewsletterController::class, 'unsubscribed'])->name('newsletter.unsubscribed');
+
+            Route::get('/tools', [ToolsController::class, 'index'])->name('tools.index');
+            Route::get('/tools/shopify-hmac', [ToolsController::class, 'hmac'])->name('tools.hmac');
+            Route::get('/tools/cron', [ToolsController::class, 'cron'])->name('tools.cron');
+            Route::get('/tools/shopify-store-check', ShopifyCheckController::class)->name('tools.shopify-check');
+
+            Route::get('/guestbook', [GuestbookController::class, 'index'])->name('guestbook.index');
+
+            Route::get('/book', [BookingController::class, 'index'])->name('book.index');
+            Route::get('/book/slots.json', [BookingController::class, 'slots'])->name('book.slots');
+            Route::get('/book/requested', [BookingController::class, 'requested'])->name('book.requested');
+            Route::get('/book/cancel/{token}', [BookingController::class, 'cancelForm'])->name('book.cancel');
         });
 }
+
+Route::post('/blog/{slug}/react', [ReactionController::class, 'store'])
+    ->middleware('throttle:30,1')
+    ->name('blog.react');
+
+Route::post('/guestbook', [GuestbookController::class, 'store'])
+    ->middleware('throttle:3,10')
+    ->name('guestbook.store');
+
+Route::post('/book', [BookingController::class, 'store'])
+    ->middleware('throttle:3,10')
+    ->name('book.store');
+Route::post('/book/cancel/{token}', [BookingController::class, 'cancel'])->name('book.cancel.confirm');
 
 Route::get('/feed', [FeedController::class, 'rss'])->name('feed');
 Route::get('/sitemap.xml', [FeedController::class, 'sitemap'])->name('sitemap');
@@ -83,6 +117,23 @@ Route::prefix('admin')
             ->parameters(['skills' => 'skillGroup']);
         Route::patch('skills/{skillGroup}/move/{direction}', [SkillGroupController::class, 'move'])
             ->whereIn('direction', ['up', 'down'])->name('skills.move');
+
+        Route::get('guestbook', [AdminGuestbookController::class, 'index'])->name('guestbook.index');
+        Route::patch('guestbook/{entry}/approve', [AdminGuestbookController::class, 'approve'])->name('guestbook.approve');
+        Route::patch('guestbook/{entry}/unapprove', [AdminGuestbookController::class, 'unapprove'])->name('guestbook.unapprove');
+        Route::delete('guestbook/{entry}', [AdminGuestbookController::class, 'destroy'])->name('guestbook.destroy');
+
+        Route::get('bookings', [AdminBookingController::class, 'index'])->name('bookings.index');
+        Route::patch('bookings/{booking}/approve', [AdminBookingController::class, 'approve'])->name('bookings.approve');
+        Route::patch('bookings/{booking}/decline', [AdminBookingController::class, 'decline'])->name('bookings.decline');
+        Route::get('availability', [AvailabilityController::class, 'edit'])->name('availability.edit');
+        Route::put('availability/settings', [AvailabilityController::class, 'updateSettings'])->name('availability.settings');
+        Route::post('availability/rules', [AvailabilityController::class, 'storeRule'])->name('availability.rules.store');
+        Route::delete('availability/rules/{rule}', [AvailabilityController::class, 'destroyRule'])->name('availability.rules.destroy');
+        Route::post('availability/blocked', [AvailabilityController::class, 'storeBlocked'])->name('availability.blocked.store');
+        Route::delete('availability/blocked/{blockedDate}', [AvailabilityController::class, 'destroyBlocked'])->name('availability.blocked.destroy');
+
+        Route::get('store-checks', [StoreCheckController::class, 'index'])->name('store-checks.index');
 
         Route::get('subscribers', [SubscriberController::class, 'index'])->name('subscribers.index');
         Route::get('subscribers/export', [SubscriberController::class, 'export'])->name('subscribers.export');
