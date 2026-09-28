@@ -202,11 +202,4 @@
 
     @include('partials.site-footer')
 
-    <button
-      id="scroll-top"
-      aria-label="{{ __('Scroll to top') }}"
-      class="fixed bottom-8 right-8 p-4 bg-primary-600 hover:bg-primary-700 text-white rounded-full shadow-lg hover:shadow-xl transition-all transform hover:scale-110 opacity-0 pointer-events-none z-50"
-    >
-      <i class="fas fa-arrow-up"></i>
-    </button>
 @endsection

@@ -78,6 +78,7 @@
 
     @yield('content')
 
+    @include('partials.scroll-top')
     @include('partials.command-palette')
   </body>
 </html>

@@ -423,3 +423,22 @@ button:focus {
     display: none;
   }
 }
+
+/* Back-to-top button: hidden until the page is scrolled */
+.scroll-top {
+  transition-property: opacity, transform, translate, box-shadow, color;
+}
+
+.scroll-top[data-visible="false"] {
+  opacity: 0;
+  pointer-events: none;
+  transform: translateY(0.75rem) scale(0.9);
+}
+
+.scroll-top[data-visible="true"] {
+  opacity: 1;
+}
+
+.scroll-top circle {
+  transition: stroke-dashoffset 0.15s linear;
+}

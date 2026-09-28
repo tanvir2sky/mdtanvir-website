@@ -147,25 +147,37 @@ if (sections.length) {
   });
 }
 
-// Scroll to Top Button
+// Scroll to Top Button: appears after scrolling, and its ring shows how far down the page you are.
 const scrollTopButton = document.getElementById("scroll-top");
 
 if (scrollTopButton) {
-  window.addEventListener("scroll", () => {
-    if (window.pageYOffset > 300) {
-      scrollTopButton.classList.remove("opacity-0", "pointer-events-none");
-      scrollTopButton.classList.add("opacity-100");
-    } else {
-      scrollTopButton.classList.add("opacity-0", "pointer-events-none");
-      scrollTopButton.classList.remove("opacity-100");
-    }
-  });
+  const ring = scrollTopButton.querySelector("[data-scroll-progress]");
+  let ticking = false;
+
+  const update = () => {
+    const max = document.documentElement.scrollHeight - window.innerHeight;
+    const progress = max > 0 ? Math.min(1, window.scrollY / max) : 0;
+    ring?.setAttribute("stroke-dashoffset", String(100 - progress * 100));
+    scrollTopButton.dataset.visible = window.scrollY > 400 ? "true" : "false";
+    ticking = false;
+  };
+
+  window.addEventListener(
+    "scroll",
+    () => {
+      if (!ticking) {
+        ticking = true;
+        requestAnimationFrame(update);
+      }
+    },
+    { passive: true }
+  );
+  window.addEventListener("resize", update, { passive: true });
+  update();
 
   scrollTopButton.addEventListener("click", () => {
-    window.scrollTo({
-      top: 0,
-      behavior: "smooth",
-    });
+    const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    window.scrollTo({ top: 0, behavior: reduceMotion ? "auto" : "smooth" });
   });
 }
 
