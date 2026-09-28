@@ -63,6 +63,7 @@ if (article) {
 document.querySelectorAll("[data-copy-link]").forEach((button) => {
   button.addEventListener("click", async () => {
     const label = button.querySelector("[data-copy-label]");
+    if (label) label.dataset.original ??= label.textContent;
     try {
       await navigator.clipboard.writeText(button.dataset.copyLink);
       if (label) label.textContent = t("common.copied");
@@ -71,7 +72,7 @@ document.querySelectorAll("[data-copy-link]").forEach((button) => {
       window.prompt(t("common.copyThisLink"), button.dataset.copyLink);
     }
     setTimeout(() => {
-      if (label) label.textContent = t("common.copyLink");
+      if (label) label.textContent = label.dataset.original;
     }, 2000);
   });
 });

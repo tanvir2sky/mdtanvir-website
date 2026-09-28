@@ -4,7 +4,6 @@
 
 @section('content')
 @php
-  $turnstileSiteKey = config('services.turnstile.site_key');
   $currentJob = $experiences->firstWhere('is_current', true);
 @endphp
     @include('partials.site-header')
@@ -198,154 +197,10 @@
         </section>
       @endif
 
-      <section
-        id="contact"
-        class="py-20 sm:py-24 px-4 sm:px-6 lg:px-8 bg-gray-50/80 dark:bg-gray-900/70"
-      >
-        <div class="max-w-6xl mx-auto">
-          <div
-            class="rounded-3xl bg-gradient-to-br from-white/90 to-primary-50/70 dark:from-gray-900/90 dark:to-gray-900 border border-gray-200 dark:border-gray-800 p-8 sm:p-10 lg:p-12 shadow-xl"
-          >
-            <div class="max-w-3xl mb-10">
-              <p class="text-sm font-semibold uppercase tracking-wider text-primary-700 dark:text-primary-300 mb-3">
-                {{ __('Get In Touch') }}
-              </p>
-              <h2 class="text-4xl md:text-5xl font-black text-gray-900 dark:text-white mb-4">
-                {{ __("Let's build something meaningful") }}
-              </h2>
-              <p class="text-lg text-gray-700 dark:text-gray-300 leading-relaxed">
-                {{ __("I'm always open to discussing new projects, creative ideas, or opportunities to be part of your vision. Feel free to reach out!") }}
-              </p>
-            </div>
-
-            @if (session('contact_status'))
-              <div
-                role="status"
-                class="mb-6 flex items-start gap-3 rounded-xl border border-green-200 bg-green-50 px-4 py-3 text-green-800 dark:border-green-800 dark:bg-green-900/30 dark:text-green-200"
-              >
-                <i class="fas fa-circle-check mt-1"></i>
-                <span>{{ session('contact_status') }}</span>
-              </div>
-            @endif
-
-            @if ($errors->any())
-              <div
-                role="alert"
-                class="mb-6 flex items-start gap-3 rounded-xl border border-red-200 bg-red-50 px-4 py-3 text-red-800 dark:border-red-800 dark:bg-red-900/30 dark:text-red-200"
-              >
-                <i class="fas fa-circle-exclamation mt-1"></i>
-                <span>{{ __("Your message wasn't sent. Please fix the highlighted fields and try again.") }}</span>
-              </div>
-            @endif
-
-            <div class="grid lg:grid-cols-2 gap-6">
-              <div class="grid sm:grid-cols-2 gap-5 content-start">
-                <a
-                  href="mailto:{{ config('portfolio.email') }}"
-                  class="contact-card bg-white dark:bg-gray-900 p-6 rounded-2xl shadow-lg hover:shadow-2xl transition-all transform hover:-translate-y-1 border border-gray-200 dark:border-gray-800 text-center"
-                >
-                  <div class="text-4xl mb-4 text-primary-600 dark:text-primary-400">
-                    <i class="fas fa-envelope"></i>
-                  </div>
-                  <h3 class="font-bold mb-2 text-gray-900 dark:text-white">{{ __('Email') }}</h3>
-                  <p class="text-gray-700 dark:text-gray-300 text-sm">{{ config('portfolio.email') }}</p>
-                </a>
-
-                <a
-                  href="{{ config('portfolio.linkedin') }}"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  class="contact-card bg-white dark:bg-gray-900 p-6 rounded-2xl shadow-lg hover:shadow-2xl transition-all transform hover:-translate-y-1 border border-gray-200 dark:border-gray-800 text-center"
-                >
-                  <div class="text-4xl mb-4 text-primary-600 dark:text-primary-400">
-                    <i class="fab fa-linkedin"></i>
-                  </div>
-                  <h3 class="font-bold mb-2 text-gray-900 dark:text-white">LinkedIn</h3>
-                  <p class="text-gray-700 dark:text-gray-300 text-sm">{{ __('Connect with me') }}</p>
-                </a>
-
-                <a
-                  href="{{ config('portfolio.github') }}"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  class="contact-card bg-white dark:bg-gray-900 p-6 rounded-2xl shadow-lg hover:shadow-2xl transition-all transform hover:-translate-y-1 border border-gray-200 dark:border-gray-800 text-center sm:col-span-2"
-                >
-                  <div class="text-4xl mb-4 text-primary-600 dark:text-primary-400">
-                    <i class="fab fa-github"></i>
-                  </div>
-                  <h3 class="font-bold mb-2 text-gray-900 dark:text-white">GitHub</h3>
-                  <p class="text-gray-700 dark:text-gray-300 text-sm">{{ __('View my code') }}</p>
-                </a>
-
-                @if ($bookingAvailable)
-                  <a
-                    href="{{ lroute('book.index') }}"
-                    class="contact-card sm:col-span-2 flex items-center gap-5 rounded-2xl p-6 text-left text-white shadow-lg transition-all hover:-translate-y-1 hover:shadow-2xl bg-gradient-to-br from-cyan-500 via-primary-600 to-violet-600"
-                  >
-                    <span class="grid h-14 w-14 shrink-0 place-items-center rounded-2xl bg-white/15 text-2xl"><i class="fas fa-calendar-check"></i></span>
-                    <span>
-                      <span class="block text-lg font-bold">{{ __('Book a free intro call') }}</span>
-                      <span class="block text-sm text-white/85">{{ __('Pick a time that suits you, :minutes minutes, no strings attached.', ['minutes' => config('booking.slot_minutes', 30)]) }}</span>
-                    </span>
-                    <i class="fas fa-arrow-right ml-auto"></i>
-                  </a>
-                @endif
-              </div>
-
-              <div class="space-y-5">
-                @include('partials.project-brief')
-
-                <form id="contact-form" method="POST" action="{{ route('contact.store') }}" class="bg-white dark:bg-gray-900 p-6 rounded-2xl shadow-lg border border-gray-200 dark:border-gray-800 space-y-4">
-                  @csrf
-                  <input type="hidden" name="locale" value="{{ app()->getLocale() }}" />
-                  <h3 class="text-xl font-bold text-gray-900 dark:text-white">{{ __('Send a Message') }}</h3>
-                  @foreach ([
-                    ['name', __('Name'), 'text'],
-                    ['email', __('Email'), 'email'],
-                    ['subject', __('Subject'), 'text'],
-                  ] as [$field, $label, $inputType])
-                    <div>
-                      <label class="block text-sm font-medium mb-2" for="{{ $field }}">{{ $label }}</label>
-                      <input id="{{ $field }}" name="{{ $field }}" type="{{ $inputType }}" value="{{ old($field, $field === 'subject' ? request()->query('subject') : null) }}" required class="w-full rounded-xl border border-gray-300 dark:border-gray-700 bg-white dark:bg-gray-800 px-4 py-3 focus:outline-none focus:ring-2 focus:ring-primary-500" />
-                      @error($field)
-                        <p class="text-sm text-red-600 mt-1">{{ $message }}</p>
-                      @enderror
-                    </div>
-                  @endforeach
-                  <div>
-                    <label class="block text-sm font-medium mb-2" for="message">{{ __('Message') }}</label>
-                    <textarea id="message" name="message" rows="5" required class="w-full rounded-xl border border-gray-300 dark:border-gray-700 bg-white dark:bg-gray-800 px-4 py-3 focus:outline-none focus:ring-2 focus:ring-primary-500">{{ old('message') }}</textarea>
-                    @error('message')
-                      <p class="text-sm text-red-600 mt-1">{{ $message }}</p>
-                    @enderror
-                  </div>
-                  @if (filled($turnstileSiteKey))
-                    <div>
-                      <div class="cf-turnstile" data-sitekey="{{ $turnstileSiteKey }}" data-language="{{ app()->getLocale() }}"></div>
-                      @error('cf-turnstile-response')
-                        <p class="text-sm text-red-600 mt-1">{{ $message }}</p>
-                      @enderror
-                      @error('turnstile')
-                        <p class="text-sm text-red-600 mt-1">{{ $message }}</p>
-                      @enderror
-                    </div>
-                  @endif
-                  <button type="submit" class="w-full px-6 py-3 rounded-xl bg-primary-600 hover:bg-primary-700 disabled:opacity-60 disabled:cursor-wait text-white font-semibold transition">
-                    {{ __('Submit Message') }}
-                  </button>
-                </form>
-              </div>
-            </div>
-
-            <div class="mt-10 pt-6 border-t border-gray-200 dark:border-gray-800 text-center">
-              <p class="text-gray-600 dark:text-gray-400">
-                © {{ now()->year }} MD Tanvir Hossain. {{ __('All rights reserved.') }}
-              </p>
-            </div>
-          </div>
-        </div>
-      </section>
+      @include('partials.contact')
     </main>
+
+    @include('partials.site-footer')
 
     <button
       id="scroll-top"
@@ -354,7 +209,4 @@
     >
       <i class="fas fa-arrow-up"></i>
     </button>
-    @if (filled($turnstileSiteKey))
-      <script src="https://challenges.cloudflare.com/turnstile/v0/api.js" async defer></script>
-    @endif
 @endsection

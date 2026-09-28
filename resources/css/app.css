@@ -154,15 +154,6 @@ section[id].visible {
   color: #38bdf8;
 }
 
-/* Contact card hover effect */
-.contact-card:hover {
-  border-color: #0ea5e9;
-}
-
-.dark .contact-card:hover {
-  border-color: #38bdf8;
-}
-
 /* Animation delays for staggered effects */
 .animate-delay-100 {
   animation-delay: 0.1s;
