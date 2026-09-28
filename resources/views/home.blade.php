@@ -141,29 +141,7 @@
         </div>
       </section>
 
-      <section
-        id="about"
-        class="py-20 sm:py-24 px-4 sm:px-6 lg:px-8 bg-gray-50/80 dark:bg-gray-900/70"
-      >
-        <div class="max-w-6xl mx-auto">
-          <div class="grid lg:grid-cols-12 gap-10">
-            <div class="lg:col-span-4">
-              <p class="text-sm font-semibold uppercase tracking-wider text-primary-700 dark:text-primary-300 mb-3">
-                {{ __('About Me') }}
-              </p>
-              <h2 class="text-4xl md:text-5xl font-black text-gray-900 dark:text-white">
-                {{ __('Engineer focused on quality and scale') }}
-              </h2>
-            </div>
-            <div class="lg:col-span-8 space-y-5 text-lg text-gray-700 dark:text-gray-300 leading-relaxed [&_strong]:text-primary-600 dark:[&_strong]:text-primary-400">
-              <p>{{ __("I'm a passionate Software Engineer with expertise in building scalable web applications using modern technologies. My journey in software development has been driven by a commitment to writing clean, maintainable code and solving complex problems with elegant solutions.") }}</p>
-              <p>{!! __("Specializing in <strong>Laravel</strong> and <strong>PHP</strong>, I've developed robust backend systems and RESTful APIs that power high-performance applications. My experience with <strong>Shopify</strong> has enabled me to create seamless e-commerce solutions and custom storefronts for businesses of all sizes.") !!}</p>
-              <p>{!! __("More recently, I've been bringing <strong>AI</strong> into production: integrating large language models into Laravel applications to power real product features, and working with AI coding assistants and agentic workflows every day to ship faster without compromising on quality.") !!}</p>
-              <p>{{ __("Beyond coding, I'm dedicated to continuous learning, staying updated with industry best practices, and contributing to the developer community. I believe in building software that not only meets requirements but exceeds expectations in terms of performance, security, and user experience.") }}</p>
-            </div>
-          </div>
-        </div>
-      </section>
+      @include('partials.about')
 
       @include('partials.skills')
 
